@@ -7,6 +7,7 @@ using BOTWM.Server.HelperTypes;
 using BOTWM.Server.DataTypes;
 using BOTW.Logging;
 using Newtonsoft.Json.Linq;
+using System.Net.NetworkInformation;
 
 namespace BOTW.DedicatedServer
 {
@@ -104,15 +105,173 @@ namespace BOTW.DedicatedServer
         Dictionary<string, Vec3f> LandmarkPositions = JsonConvert.DeserializeObject<Dictionary<string, Vec3f>>(File.ReadAllText(Directory.GetCurrentDirectory() + "/Landmarks.json"));
         List<ProphuntLocation> ServerProphuntLocations = JsonConvert.DeserializeObject<List<ProphuntLocation>>(File.ReadAllText(Directory.GetCurrentDirectory() + "/PropHuntLocations.json"));
 
+        public class ServerConnection
+        {
+            public string IP { get; set; }
+            public int Port { get; set; }
+            public string Password { get; set; }
+        }
+
+        public class ServerInformation
+        {
+            public string Description { get; set; }
+        }
+
+        private (string ipAddress, int port, string password) GetServerConfiguration()
+        {
+            // Get active network adapters
+            var interfaces = NetworkInterface.GetAllNetworkInterfaces()
+                .Where(ni => ni.OperationalStatus == OperationalStatus.Up)
+                .ToArray();
+
+            if (interfaces.Length == 0)
+            {
+                throw new Exception("No active network adapters found.");
+            }
+
+            Logger.LogInformation("---Available Network Adapters---", color: ConsoleColor.Cyan);
+
+            for (int i = 0; i < interfaces.Length; i++)
+            {
+                Logger.LogInformation($"({i}) {interfaces[i].Name} - {interfaces[i].Description}");
+            }
+
+            int selection = -1;
+            while (selection == -1)
+            {
+                string input = Logger.LogInput($"Select an adapter (0 to {interfaces.Length - 1}): ");
+                if (int.TryParse(input, out int selected) && selected >= 0 && selected < interfaces.Length)
+                {
+                    selection = selected;
+                }
+                else
+                {
+                    Logger.LogError("Invalid selection. Try again.");
+                }
+            }
+
+            var selectedInterface = interfaces[selection];
+            var ipAddress = selectedInterface.GetIPProperties().UnicastAddresses
+                .FirstOrDefault(ip => ip.Address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+
+            if (ipAddress == null)
+            {
+                throw new Exception("No IPv4 address found for the selected adapter.");
+            }
+
+            Logger.LogInformation($"Selected IP: {ipAddress.Address}");
+
+            // Prompt for port selection
+            int port;
+            while (true)
+            {
+                string input = Logger.LogInput("Enter the port for the server (default is 5050): ");
+                if (string.IsNullOrEmpty(input))
+                {
+                    port = 5050;
+                    break;
+                }
+                if (int.TryParse(input, out port) && port > 0 && port <= 65535)
+                {
+                    break;
+                }
+                Logger.LogError("Invalid port. Please enter a number between 1 and 65535.");
+            }
+
+            // Prompt for password
+            Logger.LogInformation("Enter a password for the server or press Enter to leave it empty:");
+            string password = Logger.LogInput(string.Empty);
+
+            return (ipAddress.Address.ToString(), port, password);
+        }
+
         public void setup()
         {
-            ServerConfig svConfig = new ServerConfig();
+            string configFilePath = Path.Combine(Directory.GetCurrentDirectory(), "ServerConfig.ini");
 
-            server.serverStart(svConfig.Connection.IP, svConfig.Connection.Port, svConfig.Connection.Password, svConfig.ServerInformation.Description, GetServerSettings(svConfig));
+            if (!File.Exists(configFilePath))
+            {
+                throw new FileNotFoundException($"Configuration file not found: {configFilePath}");
+            }
+
+            // Parse INI file
+            var configData = ParseIniFile(configFilePath);
+
+            // Gather server configuration
+            (string selectedIp, int port, string password) = GetServerConfiguration();
+
+            // Read Server Information
+            string description = configData["ServerInformation"]["Description"];
+
+            // Initialize ServerConfig
+            ServerConfig svConfig = new ServerConfig
+            {
+                Connection = new BOTWM.Server.HelperTypes.ServerConfig.ConnectionData
+                {
+                    IP = selectedIp,
+                    Port = port,
+                    Password = password
+                },
+                ServerInformation = new BOTWM.Server.HelperTypes.ServerConfig.ServerInformationData
+                {
+                    Description = description
+                }
+            };
+
+            // Log selected configuration
+            Logger.LogInformation($"Server will use IP: {selectedIp}", color: ConsoleColor.Cyan);
+            Logger.LogInformation($"Server will use Port: {port}", color: ConsoleColor.Cyan);
+            Logger.LogInformation($"Password set: {(string.IsNullOrEmpty(password) ? "None" : "****")}", color: ConsoleColor.Cyan);
+
+            // Start the server
+            server.serverStart(
+                svConfig.Connection.IP,
+                svConfig.Connection.Port,
+                svConfig.Connection.Password,
+                svConfig.ServerInformation.Description,
+                GetServerSettings(svConfig)
+            );
 
             server.startListen();
 
             Logger.LogInformation("Type help to see available commands");
+        }
+
+        // Utility method to parse INI file
+        private Dictionary<string, Dictionary<string, string>> ParseIniFile(string filePath)
+        {
+            var result = new Dictionary<string, Dictionary<string, string>>(StringComparer.OrdinalIgnoreCase);
+            string[] lines = File.ReadAllLines(filePath);
+            string currentSection = null;
+
+            foreach (string line in lines)
+            {
+                string trimmed = line.Trim();
+
+                if (string.IsNullOrWhiteSpace(trimmed) || trimmed.StartsWith("#") || trimmed.StartsWith(";"))
+                {
+                    continue;
+                }
+
+                if (trimmed.StartsWith("[") && trimmed.EndsWith("]"))
+                {
+                    currentSection = trimmed.Substring(1, trimmed.Length - 2).Trim();
+                    if (!result.ContainsKey(currentSection))
+                    {
+                        result[currentSection] = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    }
+                }
+                else if (!string.IsNullOrEmpty(currentSection))
+                {
+                    string[] keyValue = trimmed.Split('=', 2);
+                    if (keyValue.Length == 2)
+                    {
+                        result[currentSection][keyValue[0].Trim()] = keyValue[1].Trim();
+                    }
+                }
+            }
+
+            return result;
         }
 
         private ServerSettings GetServerSettings(ServerConfig svConfig)
