@@ -146,8 +146,8 @@ namespace BOTWM.Server
             bool ClientConnected = true;
             int PlayerNumber = -1;
             string PlayerName = "";
-            
-            while(serverOpen && ClientConnected)
+
+            while (serverOpen && ClientConnected)
             {
                 try
                 {
@@ -173,7 +173,7 @@ namespace BOTWM.Server
                     data.Clear();
                     totalLength = 0;
 
-                    if(retries > 0)
+                    if (retries > 0)
                     {
                         Logger.LogInformation($"[{PlayerName}] Retried {retries} times and took {RetryWatch.ElapsedMilliseconds} milliseconds");
                         retries = 0;
@@ -183,11 +183,11 @@ namespace BOTWM.Server
                     {
                         throw new Exception($"[{PlayerName}] Error receiving message. Disconnecting player...");
                     }
-                    else if(ClientMessage.Item1 == MessageType.ping)
+                    else if (ClientMessage.Item1 == MessageType.ping)
                     {
                         var PingResult = new PingDTO();
 
-                        if(ServerData.Configuration.PASSWORD != (string)ClientMessage.Item2)
+                        if (ServerData.Configuration.PASSWORD != (string)ClientMessage.Item2)
                             PingResult = new PingDTO()
                             {
                                 CorrectPassword = false,
@@ -210,14 +210,13 @@ namespace BOTWM.Server
 
                         connection.Close();
                         ClientConnected = false;
-
                     }
-                    else if(ClientMessage.Item1 == MessageType.connect)
+                    else if (ClientMessage.Item1 == MessageType.connect)
                     {
                         ConnectDTO UserConfiguration = (ConnectDTO)ClientMessage.Item2;
                         ConnectResponseDTO AssignationResult = ServerData.TryAssigning(UserConfiguration);
 
-                        if(AssignationResult.Response != 1)
+                        if (AssignationResult.Response != 1)
                         {
                             connection.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(AssignationResult)));
                             connection.Close();
@@ -232,8 +231,17 @@ namespace BOTWM.Server
 
                         Logger.LogInformation($"Player {UserConfiguration.Name} joined the server. Assigned to player {AssignationResult.PlayerNumber + 1}.");
                     }
-                    else if(ClientMessage.Item1 == MessageType.update)
+                    else if (ClientMessage.Item1 == MessageType.update)
                     {
+                        // Validate PlayerNumber before proceeding
+                        if (PlayerNumber < 0 || PlayerNumber >= ServerData.PlayerList.Count)
+                        {
+                            Logger.LogError($"Invalid PlayerNumber: {PlayerNumber}. Disconnecting client.");
+                            connection.Close();
+                            ClientConnected = false;
+                            break;
+                        }
+
                         ServerData.SetConnection(PlayerNumber, true);
 
                         ClientDTO UserInformation = (ClientDTO)ClientMessage.Item2;
@@ -250,8 +258,17 @@ namespace BOTWM.Server
 
                         ServerData.ClearDeathSwap(PlayerNumber);
                     }
-                    else if(ClientMessage.Item1 == MessageType.disconnect)
+                    else if (ClientMessage.Item1 == MessageType.disconnect)
                     {
+                        // Validate PlayerNumber before proceeding
+                        if (PlayerNumber < 0 || PlayerNumber >= ServerData.PlayerList.Count)
+                        {
+                            Logger.LogError($"Invalid PlayerNumber: {PlayerNumber}. Disconnecting client.");
+                            connection.Close();
+                            ClientConnected = false;
+                            break;
+                        }
+
                         Logger.LogInformation($"Player {ServerData.GetPlayer(PlayerNumber).Name} disconnected. {(string)ClientMessage.Item2}");
                         connection.Close();
                         ClientConnected = false;
@@ -260,9 +277,23 @@ namespace BOTWM.Server
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogInformation($"Player {ServerData.GetPlayer(PlayerNumber).Name} disconnected.", ex.Message);
+                    // Log the error and disconnect the client
+                    if (PlayerNumber >= 0 && PlayerNumber < ServerData.PlayerList.Count)
+                    {
+                        Logger.LogInformation($"Player {ServerData.GetPlayer(PlayerNumber).Name} disconnected.", ex.Message);
+                    }
+                    else
+                    {
+                        Logger.LogError($"An error occurred with an invalid PlayerNumber: {PlayerNumber}.", ex.Message);
+                    }
+
                     Logger.LogDebug(ex.StackTrace);
-                    ServerData.SetConnection(PlayerNumber, false);
+
+                    if (PlayerNumber >= 0 && PlayerNumber < ServerData.PlayerList.Count)
+                    {
+                        ServerData.SetConnection(PlayerNumber, false);
+                    }
+
                     connection.Close();
                     ClientConnected = false;
                 }
