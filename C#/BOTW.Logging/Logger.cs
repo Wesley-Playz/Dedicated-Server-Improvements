@@ -58,17 +58,36 @@
 
         private static void SetupLogFile()
         {
-            if(File.Exists(LogPath))
+            // Ensure the Logs folder exists
+            if (!Directory.Exists(LogsFolder))
+                Directory.CreateDirectory(LogsFolder);
+
+            string creationTime = DateTime.Now.ToString("yyyy-MM-dd, HH-mm-ss");
+            string newLogPath = $"{LogsFolder}\\{creationTime}.txt";
+
+            // Check if the log file already exists in the Logs folder
+            if (File.Exists(newLogPath))
             {
-                string creationTime = File.GetCreationTime(LogPath).ToString("yyyy-MM-dd, HH-mm-ss");
-
-                if (!Directory.Exists(LogsFolder))
-                    Directory.CreateDirectory(LogsFolder);
-
-                File.Move(LogPath, $"{LogsFolder}\\{creationTime}.txt");
+                File.Delete(newLogPath);
             }
 
-            File.CreateText(LogPath);
+            // If the LatestLog.txt exists, move it to the Logs folder with a timestamp
+            if (File.Exists(LogPath))
+            {
+                string previousLogTime = File.GetCreationTime(LogPath).ToString("yyyy-MM-dd, HH-mm-ss");
+                string previousLogPath = $"{LogsFolder}\\{previousLogTime}.txt";
+
+                if (File.Exists(previousLogPath))
+                    File.Delete(previousLogPath);
+
+                File.Move(LogPath, previousLogPath);
+            }
+
+            // Create a new log file
+            using (File.CreateText(LogPath))
+            {
+                // Initial placeholder or write any necessary headers (optional)
+            }
         }
 
         private static void WriteToLog(LogWriteLevelEnum writeLevel, string message, string details, ConsoleColor color, bool newLine = true, bool writeToCMD = true)
