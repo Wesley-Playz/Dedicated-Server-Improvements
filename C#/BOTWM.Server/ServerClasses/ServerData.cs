@@ -279,6 +279,23 @@ namespace BOTWM.Server.ServerClasses
 
             DataMutex.WaitOne(100);
 
+            // Having a name as nothing is a tad annoying
+            if (string.IsNullOrWhiteSpace(UserConfiguration.Name) || string.IsNullOrEmpty(UserConfiguration.Name))
+            {
+                return new ConnectResponseDTO() { Response = 4 };
+            }
+
+            // Next we find out if the name is already registed
+            foreach (Player player in PlayerList)
+            {
+                if (player.Name == UserConfiguration.Name)
+                {
+                    // GET OUT
+                    return new ConnectResponseDTO() { Response = 5 };
+                }
+            }
+            // Yay not taken
+
             int counter = 0;
             int playerNumber = -1;
             foreach(Player player in PlayerList)
