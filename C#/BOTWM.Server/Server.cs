@@ -221,7 +221,29 @@ namespace BOTWM.Server
                             connection.Send(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(AssignationResult)));
                             connection.Close();
                             ClientConnected = false;
-                            Logger.LogInformation($"Player {UserConfiguration.Name} tried to connect but failed with error {AssignationResult.Response}");
+                            string error = "";
+                            switch (AssignationResult.Response)
+                            {
+                                case 1:
+                                    error = "No Error";
+                                    break;
+                                case 2: 
+                                    error = "Unassigned PlayerNumber";
+                                    break;
+                                case 3:
+                                    error = "Wrong/Invalid Password";
+                                    break;
+                                case 4:
+                                    error = "Only whitespace/empty name";
+                                    break;
+                                case 5:
+                                    error = "User already exists with same name";
+                                    break;
+                                default:
+                                    error = "Unknown error code";
+                                    break;
+                            }
+                            Logger.LogInformation($"Player {UserConfiguration.Name} tried to connect but failed with error {error} (error code {AssignationResult.Response})");
                             break;
                         }
 
