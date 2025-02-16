@@ -1,4 +1,4 @@
-﻿using BOTW.Logging;
+using BOTW.Logging;
 using BOTWM.Server.DataTypes;
 using BOTWM.Server.DTO;
 using BOTWM.Server.HelperTypes;
@@ -291,6 +291,7 @@ namespace BOTWM.Server.ServerClasses
                 if (player.Name == UserConfiguration.Name)
                 {
                     // GET OUT
+                    DataMutex.ReleaseMutex(); // the server won't crash if others disconnect
                     return new ConnectResponseDTO() { Response = 5 };
                 }
             }
