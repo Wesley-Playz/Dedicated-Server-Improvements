@@ -46,30 +46,31 @@ namespace Breath_of_the_Wild_Multiplayer.Source_files
             Online = false;
         }
 
-        public static bool sendInstruction(string instruction)
+        public static string sendInstruction(string instruction)
         {
             byte[] buff = Encoding.UTF8.GetBytes(instruction + ";[END]");
 
             return sendInstruction(buff);
         }
 
-        public static bool sendInstruction(byte[] instruction)
+        public static string sendInstruction(byte[] instruction)
         {
             try
             {
                 _server.Write(instruction, 0, instruction.Length);
 
-                if (receiveResponse().Contains("Succeeded"))
+                /*if (receiveResponse().Contains("Succeeded"))
                     return true;
 
-                return false;
+                return false;*/
+                return receiveResponse();
             }
             catch
             {
                 if (Online)
                     _server.Disconnect();
                 Online = false;
-                return false;
+                return "Failed";
             }
         }
 

@@ -10,6 +10,7 @@ using Breath_of_the_Wild_Multiplayer.MVVM.Model.DTO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
+using System.CodeDom.Compiler;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 {
@@ -279,18 +280,55 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             instruction.AddRange(Encoding.UTF8.GetBytes(";[END]"));
 
             await Task.Run(() => {
-                if (!NamedPipes.sendInstruction(instruction.ToArray()))
+                Func<int, string> GetError = iresponse => {
+                            string error = "";
+                            switch (iresponse)
+                            {
+                                case 1:
+                                    error = "No Error";
+                                    break;
+                                case 2: 
+                                    error = "Unassigned PlayerNumber";
+                                    break;
+                                case 3:
+                                    error = "Wrong/Invalid Password";
+                                    break;
+                                case 4:
+                                    error = "Only whitespace/empty name";
+                                    break;
+                                case 5:
+                                    error = "User already exists with same name";
+                                    break;
+                                default:
+                                    error = "Unknown error code";
+                                    break;
+                            }; 
+                            return error + " (error code " + iresponse.ToString() + ")"; };
+                Func<string, string> GetResponseErrorFromJson = sresponse => {
+                    string[] simplify = sresponse.Split(":;{\"Response\":")[1].Split(",");
+                    int iresponse = -1;
+
+                    if (!Int32.TryParse(simplify[0], out iresponse))
+                    {
+                        throw new ApplicationException("Could not connect to server. GetResponseFromJsonSimplify[0] contained non number text.");
+                    }
+
+                    return GetError(iresponse);
+                };
+
+                string si1 = NamedPipes.sendInstruction(instruction.ToArray());
+                if (!si1.Contains("Succeeded"))
                 {
                     CemuProcess.Kill();
-                    throw new ApplicationException("Could not connect to server. Internal connection failed.");
+                    throw new ApplicationException("Could not connect to server. " + GetResponseErrorFromJson(si1));
                 }
 
                 Task.Delay(50);
-
-                if (!NamedPipes.sendInstruction($"!startServerLoop"))
+                string si2 = NamedPipes.sendInstruction($"!startServerLoop");
+                if (!si2.Contains("Succeeded"))
                 {
                     CemuProcess.Kill();
-                    throw new ApplicationException("Could not start server loop.");
+                    throw new ApplicationException("Could not start server loop. " + GetResponseErrorFromJson(si2));
                 }
             });
 
