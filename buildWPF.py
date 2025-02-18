@@ -90,5 +90,3 @@ os.mkdir(f"{Output}\\BNPs")
 for file in os.listdir(f"{os.getcwd()}/BNP Files"):
     if not ".bnp" in file: continue
     copyFile(f"{os.getcwd()}/BNP Files/{file}", f"{Output}\\BNPs\\{file}")
-
-input("Press enter to continue")
