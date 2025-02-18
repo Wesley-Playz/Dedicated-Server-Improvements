@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <BaseOutputPath></BaseOutputPath>
+    <AssemblyName>MBL.Common</AssemblyName>
+	<OutputPath>..\..\Build</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+
+  <!--We don't actually need this *yet*-->
+  <!--<ItemGroup>-->
+  <!--  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />-->
+  <!--</ItemGroup>-->
+
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+  <Target Name="CopyDLLAndPDB" AfterTargets="Build">
+  <!-- Copy the main assembly -->
+  <Copy 
+    SourceFiles="$(OutputPath)$(AssemblyName).dll" 
+    DestinationFolder="..\..\Build\DedicatedServer" />
+  <!-- Copy the PDB file if it exists -->
+  <Copy 
+    SourceFiles="$(OutputPath)$(AssemblyName).pdb" 
+    DestinationFolder="..\..\Build\DedicatedServer" 
+    Condition="Exists('$(OutputPath)$(AssemblyName).pdb')" />
+</Target>
+    
+</Project>

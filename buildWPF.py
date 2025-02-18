@@ -35,7 +35,7 @@ def copyFolder(src, dest, filters = []):
 
 def BuildProject(projectFolder):
     subprocess.call(["dotnet", "clean", projectFolder])
-    subprocess.call(["dotnet", "build", projectFolder, "/p:Configuration=Release"])
+    subprocess.call(["dotnet", "build", projectFolder, "/p:Configuration=Release", "/p:Platform=\"Any CPU\""])
 
 def BuildDLL():
     subprocess.call(["msbuild", r"DLL\InjectDLL\InjectDLL.sln", "/p:Configuration=Release"])
@@ -69,7 +69,7 @@ def ClearFilesWithFilter(FolderToClear, filters = []):
             else:
                 os.remove(fr"{FolderToClear}\{file}")
 
-            print(f"Cleared {FolderToClear}\{file}")
+            print(fr"Cleared {FolderToClear}\{file}")
             return
         
         if os.path.isdir(fr"{FolderToClear}\{file}"):
@@ -90,5 +90,3 @@ os.mkdir(f"{Output}\\BNPs")
 for file in os.listdir(f"{os.getcwd()}/BNP Files"):
     if not ".bnp" in file: continue
     copyFile(f"{os.getcwd()}/BNP Files/{file}", f"{Output}\\BNPs\\{file}")
-
-input("Press enter to continue")

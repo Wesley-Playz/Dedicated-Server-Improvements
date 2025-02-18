@@ -244,6 +244,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SarcWrapper\SarcWrapper.csproj" />
+    <ProjectReference Include="..\..\C#\BOTWM.Common\BOTWM.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

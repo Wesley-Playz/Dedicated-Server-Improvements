@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BOTW.Logging\BOTWM.Logging.csproj" />
+    <ProjectReference Include="..\BOTWM.Common\BOTWM.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
