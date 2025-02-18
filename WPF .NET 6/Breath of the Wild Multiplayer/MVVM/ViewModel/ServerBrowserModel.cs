@@ -280,40 +280,23 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             instruction.AddRange(Encoding.UTF8.GetBytes(";[END]"));
 
             await Task.Run(() => {
-                Func<int, string> GetError = iresponse => {
-                            string error = "";
-                            switch (iresponse)
-                            {
-                                case 1:
-                                    error = "No Error";
-                                    break;
-                                case 2: 
-                                    error = "Unassigned PlayerNumber";
-                                    break;
-                                case 3:
-                                    error = "Wrong/Invalid Password";
-                                    break;
-                                case 4:
-                                    error = "Only whitespace/empty name";
-                                    break;
-                                case 5:
-                                    error = "User already exists with same name";
-                                    break;
-                                default:
-                                    error = "Unknown error code";
-                                    break;
-                            }; 
-                            return error + " (error code " + iresponse.ToString() + ")"; };
                 Func<string, string> GetResponseErrorFromJson = sresponse => {
-                    string[] simplify = sresponse.Split(":;{\"Response\":")[1].Split(",");
-                    int iresponse = -1;
-
-                    if (!Int32.TryParse(simplify[0], out iresponse))
+                    if (sresponse.Contains(":;"))
                     {
-                        throw new ApplicationException("Could not connect to server. GetResponseFromJsonSimplify[0] contained non number text.");
-                    }
+                        string[] simplify = sresponse.Split(":;{")[1].Split("\"Response\":")[1].Split(",");
+                        int iresponse = -1;
 
-                    return GetError(iresponse);
+                        if (!Int32.TryParse(simplify[0], out iresponse))
+                        {
+                            throw new ApplicationException("Could not connect to server. GetResponseFromJsonSimplify[0] contained non number text.");
+                        }
+
+                        return BOTWM.Common.ServerError.GetErrorMessage(iresponse);
+                    }
+                    else
+                    {
+                        return "Couldn't grab anymore detail. Either something internal went wrong or you are joining a server which uses the original server code.";
+                    }
                 };
 
                 string si1 = NamedPipes.sendInstruction(instruction.ToArray());

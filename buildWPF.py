@@ -69,7 +69,7 @@ def ClearFilesWithFilter(FolderToClear, filters = []):
             else:
                 os.remove(fr"{FolderToClear}\{file}")
 
-            print(f"Cleared {FolderToClear}\{file}")
+            print(fr"Cleared {FolderToClear}\{file}")
             return
         
         if os.path.isdir(fr"{FolderToClear}\{file}"):

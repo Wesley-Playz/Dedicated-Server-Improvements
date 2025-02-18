@@ -105,8 +105,10 @@ void readInstruction() {
 
   while (!started) {
     TCHAR chBuff[BUFF_SIZE];
+    const int responsePositiveActualLength = 11;
     TCHAR responsePositive[BUFF_SIZE] = "Succeeded:;";
-    TCHAR responseNegative[BUFF_SIZE] = "Failedddd:;";
+    const int responseNegativeActualLength = 8;
+    TCHAR responseNegative[BUFF_SIZE] = "Failed:;";
     bool response = false;
 
     do {
@@ -132,11 +134,16 @@ void readInstruction() {
       }
 
       if (response) {
+        // we might as well send over then data for success even though we don't
+        // need it *yet*
+        for (size_t i = 0; i < sizeof(serverData) / sizeof(TCHAR); ++i) {
+          responsePositive[i + responsePositiveActualLength] = serverData[i];
+        }
         success = WriteFile(namedPipe->hPipe, responsePositive,
                             BUFF_SIZE * sizeof(TCHAR), &read, nullptr);
       } else {
         for (size_t i = 0; i < sizeof(serverData) / sizeof(TCHAR); ++i) {
-          responseNegative[i + 11] = serverData[i];
+          responseNegative[i + responseNegativeActualLength] = serverData[i];
         }
         success = WriteFile(namedPipe->hPipe, responseNegative,
                             BUFF_SIZE * sizeof(TCHAR), &read, nullptr);
