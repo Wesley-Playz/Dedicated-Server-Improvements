@@ -22,22 +22,22 @@ jobs:
     - name: Compile
       run: | 
         python buildWPF.py
+    - name: LS
+      run: |
+        dir Build
     - name: Move Dedicated server to .
       run: |
         move Build\DedicatedServer .
+    - name: LS2
+      run: |
+        dir Build
     - name: Rename Build to MilkBarLauncher
       shell: pwsh
       run: |
         Rename-Item -Path "Build" -NewName "MilkBarLauncher"
-    - name: Upload files
-      uses: actions/upload-artifact@v4
-      with:
-        name: Artifacts
-        path: |
-          MilkBarLauncher
-          DedicatedServer.zip
-        if-no-files-found: error
-        compression-level: 9
+    - name: LS3
+      run: |
+        dir Build
     - name: Upload MilkBarLauncher
       uses: actions/upload-artifact@v4
       with:
