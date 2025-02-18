@@ -20,10 +20,6 @@ jobs:
     - name: Compile
       run: | 
         python buildWPF.py
-    - name: Rename Build to MilkBarLauncher
-      shell: pwsh
-      run: |
-        Rename-Item -Path "Build" -NewName "MilkBarLauncher"
     - name: Upload DedicatedServer
       uses: actions/upload-artifact@v4
       with:
