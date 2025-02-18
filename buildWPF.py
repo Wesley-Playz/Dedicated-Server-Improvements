@@ -1,6 +1,7 @@
 import subprocess
 from shutil import copy, rmtree, copytree
 import os
+import sys
 
 abovePath = "\\".join(os.getcwd().split("\\")[:-1])
 
@@ -81,12 +82,11 @@ if(os.path.exists(Output)):
     ClearFolder(Output)
 
 BuildProject(GUIAppProject)
-BuildProject(WPFProject)
+if not sys.platform == "linux":
+    BuildProject(WPFProject)
+    BuildDLL()
+    os.mkdir(f"{Output}\\BNPs")
 
-BuildDLL()
-
-os.mkdir(f"{Output}\\BNPs")
-
-for file in os.listdir(f"{os.getcwd()}/BNP Files"):
-    if not ".bnp" in file: continue
-    copyFile(f"{os.getcwd()}/BNP Files/{file}", f"{Output}\\BNPs\\{file}")
+    for file in os.listdir(f"{os.getcwd()}/BNP Files"):
+        if not ".bnp" in file: continue
+        copyFile(f"{os.getcwd()}/BNP Files/{file}", f"{Output}\\BNPs\\{file}")

@@ -1,0 +1,33 @@
+name: Compile-Linux-Dedicated-Server
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+jobs:
+  windows:
+    name: Compile-Linux-Dedicated-Server
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '6.x'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: Compile
+      run: | 
+        python buildWPF.py
+    - name: Rename Build to MilkBarLauncher
+      shell: pwsh
+      run: |
+        Rename-Item -Path "Build" -NewName "MilkBarLauncher"
+    - name: Upload DedicatedServer
+      uses: actions/upload-artifact@v4
+      with:
+        name: DedicatedServer
+        path: Build/DedicatedServer
+        if-no-files-found: error
+        compression-level: 9
