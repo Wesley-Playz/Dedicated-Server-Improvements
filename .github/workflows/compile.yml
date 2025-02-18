@@ -1,0 +1,51 @@
+name: compile
+
+on:
+  workflow_dispatch:
+
+jobs:
+  windows:
+    name: run on windows
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ilammy/msvc-dev-cmd@v1.4.1
+    - uses: microsoft/setup-msbuild@v2
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+    - name: Compile
+      run: | 
+        python buildWPF.py
+    - name: Move Dedicated server to .
+      run: |
+        move Build\DedicatedServer .
+    - name: Rename Build to MilkBarLauncher
+      run: |
+        rename Build MilkBarLauncher
+    - name: Upload files
+      uses: actions/upload-artifact@v4
+      with:
+        name: Artifacts
+        path: |
+          MilkBarLauncher
+          DedicatedServer.zip
+        if-no-files-found: error
+        compression-level: 9
+    - name: Upload MilkBarLauncher
+      uses: actions/upload-artifact@v4
+      with:
+        name: MilkBarLauncher
+        path: MilkBarLauncher
+        if-no-files-found: error
+        compression-level: 9
+    - name: Upload DedicatedServer
+      uses: actions/upload-artifact@v4
+      with:
+        name: DedicatedServer
+        path: DedicatedServer
+        if-no-files-found: error
+        compression-level: 9
