@@ -291,7 +291,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
                             throw new ApplicationException("Could not connect to server. GetResponseFromJsonSimplify[0] contained non number text.");
                         }
 
-                        return BOTWM.Common.ServerError.GetErrorMessage(iresponse);
+                        return BOTWM.Common.ServerError.GetErrorMessage(iresponse) + " (error code " + iresponse.ToString() + ")";
                     }
                     else
                     {
