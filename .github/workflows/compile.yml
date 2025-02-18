@@ -1,4 +1,4 @@
-name: compile
+name: Compile
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   windows:
-    name: run on windows
+    name: Compile-Windows
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
     - uses: microsoft/setup-msbuild@v2
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.x'
+        dotnet-version: '6.x'
     - uses: actions/setup-python@v5
       with:
         python-version: '3.13'
@@ -37,7 +37,7 @@ jobs:
         Rename-Item -Path "Build" -NewName "MilkBarLauncher"
     - name: LS3
       run: |
-        dir Build
+        dir MilkBarLauncher
     - name: Upload MilkBarLauncher
       uses: actions/upload-artifact@v4
       with:
