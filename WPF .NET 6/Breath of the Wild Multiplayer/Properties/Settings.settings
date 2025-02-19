@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="playerName" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Link</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="background" Type="System.String" Scope="User">
       <Value Profile="(Default)">Random</Value>
@@ -28,6 +28,24 @@
     </Setting>
     <Setting Name="playAsModel" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PythonStoreWarning" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="CemuWarning" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CemuOneDrive" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ModsNumberWarning" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="UseRPC" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="RPCDisplayServer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

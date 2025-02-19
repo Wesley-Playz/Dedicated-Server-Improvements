@@ -11,6 +11,7 @@
     <UserControl.DataContext>
         <viewModel:ServerBrowserModel/>
     </UserControl.DataContext>
+    
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -53,8 +54,14 @@
                         </Button.Tag>
                     </Button>
                 </StackPanel>
+                
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" Style="{StaticResource Scroll}" Tag="{Binding scrollState, Mode=TwoWay}" ScrollChanged="ScrollViewer_ScrollChanged">
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Style="{StaticResource Scroll}" Tag="{Binding scrollState, Mode=TwoWay}" ScrollChanged="ScrollViewer_ScrollChanged">
+                    <ScrollViewer.Resources>
+                        <Style TargetType="ScrollBar">
+                            <Setter Property="Background" Value="Transparent"/>
+                        </Style>
+                    </ScrollViewer.Resources>
                     <ItemsControl Name="serverList" ItemsSource="{Binding serversToShow}" Background="Transparent">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

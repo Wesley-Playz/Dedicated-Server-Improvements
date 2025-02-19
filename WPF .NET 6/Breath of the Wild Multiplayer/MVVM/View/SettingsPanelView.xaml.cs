@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Breath_of_the_Wild_Multiplayer.MVVM.Model;
+using Breath_of_the_Wild_Multiplayer.MVVM.ViewModel;
+using DiscordRPC;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.View
 {
@@ -24,6 +27,20 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.View
         public SettingsPanelView()
         {
             InitializeComponent();
+            if (DiscordRichPresence.client != null)
+            {
+                DiscordRichPresence.client.SetPresence(new RichPresence()
+                {
+                    Details = "Settings",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "image_big",
+                        LargeImageText = "V2.1 By the lon lon ranch",
+                        //SmallImageKey = "little_image",
+                        //SmallImageText = "Text little_image",
+                    }
+                });
+            }
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -35,13 +52,26 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.View
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (((TextBox)sender).Text == "")
+            if (string.IsNullOrWhiteSpace(((TextBox)sender).Text))
             {
-                ((TextBox)sender).Text = Properties.Settings.Default.playerName;
+                Properties.Settings.Default.playerName = "link";
+                Properties.Settings.Default.Save();
+                return;
+            }
+
+            bool isNameValid = ((TextBox)sender).Text.All(c => c <= 127 && c != ';');
+
+            if (isNameValid)
+            {
+                Properties.Settings.Default.playerName = ((TextBox)sender).Text;
+                Properties.Settings.Default.Save();
             }
             else
             {
-                Properties.Settings.Default.playerName = ((TextBox)sender).Text;
+                var ErrorMessage = new ErrorMessageModel();
+                ErrorMessage.Message = $"Player name contains non-ascii characters";
+                SharedData.MainView.updateTopView(ErrorMessage);
+                Properties.Settings.Default.playerName = "link";
                 Properties.Settings.Default.Save();
             }
         }

@@ -12,7 +12,7 @@
     <UserControl.DataContext>
         <viewModel:ServerEditorModel/>
     </UserControl.DataContext>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -33,6 +33,15 @@
                FontSize="26"
                FontStyle="Italic"
                Foreground="White"/>
+
+        <Label Content="WARNING the server name will be displayed in discord presence, you can change this in the settings." 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Top"
+               FontFamily="Roboto"
+               FontSize="14"
+               FontStyle="Italic"
+               Foreground="Red"
+               Margin="0,32,0,0" Grid.RowSpan="2" Grid.Row="1"/>
 
         <TextBox Grid.Row="2" 
                  Text="{Binding Name}" 
@@ -62,6 +71,7 @@
         </TextBox>
 
         <TextBox Grid.Row="4" 
+                 Name="PortTextBox"
                  Text="{Binding Port}" 
                  Style="{StaticResource modifiableTextBox}" 
                  BorderBrush="#FFC4C6CB" 

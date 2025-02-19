@@ -51,7 +51,7 @@
             </Grid.RowDefinitions>
 
             <Image Source="{StaticResource White_Logo}"
-                   Margin="5">
+                   Margin="5,-132,5,142">
                 <Image.Effect>
                     <DropShadowEffect ShadowDepth="0"
                                   Color="Black"
@@ -126,6 +126,18 @@
                 </Button.Tag>
             </Button>
 
+            <Button Content="original" Style="{StaticResource DiscordButtons}" Command="{Binding discordButton}" Margin="-495,5,450,0" Grid.Row="2">
+                <Button.Tag>
+                    <BitmapImage UriSource="/Images/discord_Logo.png"/>
+                </Button.Tag>
+            </Button>
+
+            <Button Content="fork" Style="{StaticResource DiscordButtons}" Command="{Binding ForkdiscordButton}" Margin="-628,5,620,0" Grid.Row="2">
+                <Button.Tag>
+                    <BitmapImage UriSource="/Images/discord_Logo.png"/>
+                </Button.Tag>
+            </Button>
+
             <CheckBox
                 Content="Play as model"
                 Grid.Row="4"
@@ -139,6 +151,26 @@
                     </ToolTip>
                 </CheckBox.ToolTip>
             </CheckBox>
+
+            <CheckBox
+               Content="Discord Presence"
+               Grid.Row="4"
+               Style="{StaticResource discordCustomCheckbox}"
+               IsChecked="{Binding EnableDiscordRPC}" Margin="-495,0,605,0">
+                <CheckBox.ToolTip>
+                    <ToolTip
+                        Content="Restarts the application to apply changes"
+                        Style="{StaticResource customTooltip}">
+                    </ToolTip>
+                </CheckBox.ToolTip>
+            </CheckBox>
+            <CheckBox
+               Content="Show server name in discord RPC"
+               Grid.Row="3"
+               Style="{StaticResource discordServerCustomCheckbox}"
+               IsChecked="{Binding RPCDisplayServer}" Margin="-495,0,605,0">
+            </CheckBox>
+
         </Grid>
 
     </Grid>

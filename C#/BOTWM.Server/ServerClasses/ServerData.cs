@@ -389,7 +389,7 @@ namespace BOTWM.Server.ServerClasses
         static private Dictionary<string, string> ReadArmorMappingJson()
         {
             string AppdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\BOTWM";
-            string ArmorMappingJson = File.ReadAllText(AppdataFolder + "\\ArmorMapping.txt");
+            string ArmorMappingJson = File.ReadAllText(AppdataFolder + "\\BOTWM.DedicatedServer.AppdataFiles.ArmorMapping.txt");
 
             return JsonConvert.DeserializeObject<Dictionary<string, string>>(ArmorMappingJson);
         }

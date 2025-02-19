@@ -11,9 +11,66 @@ using System.Text;
 using Newtonsoft.Json;
 using Breath_of_the_Wild_Multiplayer.MVVM.Model.DTO;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.Model
 {
+    public class IPResolver
+    {
+        public string ResolveIP(string hostNameOrAddress)
+        {
+            string ipToUse = string.Empty;
+
+            if (hostNameOrAddress == "localhost")
+            {
+                var host = Dns.GetHostEntry(Dns.GetHostName());
+                foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+                {
+                    if (item.OperationalStatus == OperationalStatus.Up)
+                    {
+                        foreach (UnicastIPAddressInformation uip in item.GetIPProperties().UnicastAddresses)
+                        {
+                            if (uip.Address.AddressFamily == AddressFamily.InterNetwork && host.AddressList.Contains(uip.Address))
+                            {
+                                ipToUse = uip.Address.ToString();
+                                break;
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(ipToUse)) break;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(ipToUse))
+                {
+                    ipToUse = "127.0.0.1";
+                }
+            }
+            else
+            {
+                try
+                {
+                    var addresses = Dns.GetHostAddresses(hostNameOrAddress);
+                    var ipv4Address = addresses.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+
+                    if (ipv4Address != null)
+                    {
+                        ipToUse = ipv4Address.ToString();
+                    }
+                    else
+                    {
+                        ipToUse = addresses.FirstOrDefault()?.ToString() ?? hostNameOrAddress;
+                    }
+                }
+                catch (Exception)
+                {
+                    ipToUse = "127.0.0.1";
+                }
+            }
+
+            return ipToUse;
+        }
+    }
     public class serverDataModel : ObservableObject
     {
 
@@ -83,7 +140,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.Model
             }
         }
 
-        private Dictionary<byte, string> playerList = new Dictionary<byte, string>();
+        public Dictionary<byte, string> playerList = new Dictionary<byte, string>();
 
         public List<string> playerListWithNumber
         {
@@ -260,7 +317,10 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.Model
                 if (!isCemuSetup)
                     return "BCML installation not found";
                 if (!open)
-                    return "Server closed";
+                    if (status == ServerStatus.WrongPassword)
+                        return "Wrong password";
+                    else if (status == ServerStatus.Offline)
+                        return "Server closed";
                 return "Connect";
             }
             set
@@ -339,7 +399,10 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.Model
 
         public void pingServer()
         {
-            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(this.IP), this.Port);
+            IPResolver resolver = new IPResolver();
+            string ipToUse = resolver.ResolveIP(this.IP);
+
+            IPEndPoint ip = new IPEndPoint(IPAddress.Parse(ipToUse), this.Port);
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             this.status = ServerStatus.Pinging;

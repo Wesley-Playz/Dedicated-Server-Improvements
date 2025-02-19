@@ -25,6 +25,10 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.View
         public ServerEditorView()
         {
             InitializeComponent();
+            if (this.DataContext is ServerEditorModel model && string.IsNullOrEmpty(model.Port))
+            {
+                model.Port = "5050"; // default port
+            }
         }
 
         // Name validations

@@ -11,7 +11,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
         {
             AcceptClick = new RelayCommand(o =>
             {
-                SharedData.MainView.closeTopView();
+                SharedData.MainView.customCloseTopView();
             });
         }
     }

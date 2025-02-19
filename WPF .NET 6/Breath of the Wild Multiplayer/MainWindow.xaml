@@ -17,7 +17,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         Title="Breath of the Wild Multiplayer">
-    
+
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
@@ -53,6 +53,16 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+
+            <Label Content="V2.1 By the lon lon ranch" 
+               x:Name="VersionText"
+               Visibility="Visible"
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Bottom"
+               FontFamily="Roboto"
+               FontSize="35"
+               FontStyle="Italic"
+               Foreground="White" Margin="783,0,0,0" Grid.Row="1"/>
 
             <Label Content="{Binding appTitle}" 
                Grid.Row="2" 

@@ -1,6 +1,8 @@
 # Lon Lon MilkBar
 This is the repository for Lon Lon Milkbar (Milk Bar Launcher). Here you can find all of the projects needed to build this project
 
+You can find the changelog in this trello board: https://trello.com/b/VzEeQhBW/lon-lon-milkbar
+
 **There are four important folders in this project listed below:**
 
 ## [C#](C%23)

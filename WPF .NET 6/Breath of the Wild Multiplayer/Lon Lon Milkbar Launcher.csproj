@@ -1,0 +1,312 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AppendRuntimeIdentifierToOutputPath>true</AppendRuntimeIdentifierToOutputPath>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <RootNamespace>Breath_of_the_Wild_Multiplayer</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <OutputPath>..\..\Build</OutputPath>
+    <ApplicationIcon>Icon_C.ico</ApplicationIcon>
+    <PackageId>Lon Lon Milkbar Launcher</PackageId>
+    <Authors></Authors>
+    <Company>Lon Lon Ranch</Company>
+    <Product>Lon Lon Milkbar Launcher</Product>
+    <AssemblyName>Lon Lon Milkbar Launcher</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AppdataFiles\ArmorMapping.txt" />
+    <None Remove="AppdataFiles\QuestFlags.txt" />
+    <None Remove="AppdataFiles\QuestFlagsNames.txt" />
+    <None Remove="AppdataFiles\WeaponDamages.txt" />
+    <None Remove="Images\AddServer_Icon.png" />
+	<None Remove="Images\discord_Logo.png" />
+    <None Remove="Images\ArmorSync.png" />
+    <None Remove="Images\Body\BumiiMaker.png" />
+    <None Remove="Images\Body\Gerudo_Champion.png" />
+    <None Remove="Images\Body\Gerudo_General.png" />
+    <None Remove="Images\Body\Gerudo_Hero.png" />
+    <None Remove="Images\Body\Gerudo_Jolien.png" />
+    <None Remove="Images\Body\Gerudo_Promoter.png" />
+    <None Remove="Images\Body\Gerudo_Queen.png" />
+    <None Remove="Images\Body\Gerudo_Shopkeeper_000.png" />
+    <None Remove="Images\Body\Gerudo_Shopkeeper_001.png" />
+    <None Remove="Images\Body\Goron_Darnia.png" />
+    <None Remove="Images\Body\Goron_Hero.png" />
+    <None Remove="Images\Body\Hylia_Carpenter_000.png" />
+    <None Remove="Images\Body\Hylia_Carpenter_001.png" />
+    <None Remove="Images\Body\Hylia_Carpenter_001_Wedding.png" />
+    <None Remove="Images\Body\Hylia_Drag.png" />
+    <None Remove="Images\Body\Hylia_Dyer.png" />
+    <None Remove="Images\Body\Hylia_Johnny.png" />
+    <None Remove="Images\Body\King_Ghost.png" />
+    <None Remove="Images\Body\King_Vagrant.png" />
+    <None Remove="Images\Body\Korogu_Minister.png" />
+    <None Remove="Images\Body\Link.png" />
+    <None Remove="Images\Body\MamonoShop.png" />
+    <None Remove="Images\Body\Rito_Hearts.png" />
+    <None Remove="Images\Body\Rito_Hero.png" />
+    <None Remove="Images\Body\Rito_Moto.png" />
+    <None Remove="Images\Body\Rito_Musician.png" />
+    <None Remove="Images\Body\Rito_Saki.png" />
+    <None Remove="Images\Body\Rito_Teba.png" />
+    <None Remove="Images\Body\Scientist_M_000.png" />
+    <None Remove="Images\Body\Scientist_W_000.png" />
+    <None Remove="Images\Body\Shiekah_Artist.png" />
+    <None Remove="Images\Body\Shiekah_Escort_000.png" />
+    <None Remove="Images\Body\Shiekah_Escort_001.png" />
+    <None Remove="Images\Body\Shiekah_Heir.png" />
+    <None Remove="Images\Body\Shiekah_Impa.png" />
+    <None Remove="Images\Body\Shiekah_Maharishi.png" />
+    <None Remove="Images\Body\Zora_Hero.png" />
+    <None Remove="Images\Body\Zora_Priest.png" />
+    <None Remove="Images\Body\Zora_Prince.png" />
+    <None Remove="Images\Bust\BumiiMaker.png" />
+    <None Remove="Images\Bust\Environmental.png" />
+    <None Remove="Images\Bust\Gerudo_Champion.png" />
+    <None Remove="Images\Bust\Gerudo_General.png" />
+    <None Remove="Images\Bust\Gerudo_Hero.png" />
+    <None Remove="Images\Bust\Gerudo_Jolien.png" />
+    <None Remove="Images\Bust\Gerudo_Promoter.png" />
+    <None Remove="Images\Bust\Gerudo_Queen.png" />
+    <None Remove="Images\Bust\Gerudo_Shopkeeper_000.png" />
+    <None Remove="Images\Bust\Gerudo_Shopkeeper_001.png" />
+    <None Remove="Images\Bust\Goron_Darnia.png" />
+    <None Remove="Images\Bust\Goron_Hero.png" />
+    <None Remove="Images\Bust\Hylia_Carpenter_000.png" />
+    <None Remove="Images\Bust\Hylia_Carpenter_001.png" />
+    <None Remove="Images\Bust\Hylia_Carpenter_001_Wedding.png" />
+    <None Remove="Images\Bust\Hylia_Drag.png" />
+    <None Remove="Images\Bust\Hylia_Dyer.png" />
+    <None Remove="Images\Bust\Hylia_Johnny.png" />
+    <None Remove="Images\Bust\King_Ghost.png" />
+    <None Remove="Images\Bust\King_Vagrant.png" />
+    <None Remove="Images\Bust\Korogu_Minister.png" />
+    <None Remove="Images\Bust\Link.png" />
+    <None Remove="Images\Bust\MamonoShop.png" />
+    <None Remove="Images\Bust\Rito_Hearts.png" />
+    <None Remove="Images\Bust\Rito_Hero.png" />
+    <None Remove="Images\Bust\Rito_Moto.png" />
+    <None Remove="Images\Bust\Rito_Musician.png" />
+    <None Remove="Images\Bust\Rito_Saki.png" />
+    <None Remove="Images\Bust\Rito_Teba.png" />
+    <None Remove="Images\Bust\Scientist_M_000.png" />
+    <None Remove="Images\Bust\Scientist_W_000.png" />
+    <None Remove="Images\Bust\Shiekah_Artist.png" />
+    <None Remove="Images\Bust\Shiekah_Escort_000.png" />
+    <None Remove="Images\Bust\Shiekah_Escort_001.png" />
+    <None Remove="Images\Bust\Shiekah_Heir.png" />
+    <None Remove="Images\Bust\Shiekah_Impa.png" />
+    <None Remove="Images\Bust\Shiekah_Maharishi.png" />
+    <None Remove="Images\Bust\Zora_Hero.png" />
+    <None Remove="Images\Bust\Zora_Priest.png" />
+    <None Remove="Images\Bust\Zora_Prince.png" />
+    <None Remove="Images\ColoredLogo.png" />
+    <None Remove="Images\DirectConnection_Icon.png" />
+    <None Remove="Images\mainWindowBackground.png" />
+    <None Remove="Images\Plus.png" />
+    <None Remove="Images\Refresh_Icon.png" />
+    <None Remove="Resources\aapmLib.exe" />
+    <None Remove="Resources\aapmLib.py" />
+    <None Remove="Resources\bumii_IO.exe" />
+    <None Remove="Resources\Dummy.bumii" />
+    <None Remove="Resources\InjectDLL.dll" />
+    <None Remove="Resources\NpcData.json" />
+    <None Remove="Source files\EnvironmentalModels.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Icon_C.ico" />
+    <Content Include="Resources\aapmLib.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\aapmLib.py">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\bumii_IO.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\InjectDLL.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="AppdataFiles\ArmorMapping.txt" />
+    <EmbeddedResource Include="AppdataFiles\QuestFlags.txt" />
+    <EmbeddedResource Include="AppdataFiles\QuestFlagsNames.txt" />
+    <EmbeddedResource Include="AppdataFiles\WeaponDamages.txt" />
+    <EmbeddedResource Include="Resources\Dummy.bumii" />
+    <Resource Include="Images\AddServer_Icon.png" />
+	<Resource Include="Images\discord_Logo.png" />
+    <Resource Include="Images\ArmorSync.png" />
+    <Resource Include="Images\Body\BumiiMaker.png" />
+    <Resource Include="Images\Body\Gerudo_Champion.png" />
+    <Resource Include="Images\Body\Gerudo_General.png" />
+    <Resource Include="Images\Body\Gerudo_Hero.png" />
+    <Resource Include="Images\Body\Gerudo_Jolien.png" />
+    <Resource Include="Images\Body\Gerudo_Promoter.png" />
+    <Resource Include="Images\Body\Gerudo_Queen.png" />
+    <Resource Include="Images\Body\Gerudo_Shopkeeper_000.png" />
+    <Resource Include="Images\Body\Gerudo_Shopkeeper_001.png" />
+    <Resource Include="Images\Body\Goron_Darnia.png" />
+    <Resource Include="Images\Body\Goron_Hero.png" />
+    <Resource Include="Images\Body\Hylia_Carpenter_000.png" />
+    <Resource Include="Images\Body\Hylia_Carpenter_001.png" />
+    <Resource Include="Images\Body\Hylia_Carpenter_001_Wedding.png" />
+    <Resource Include="Images\Body\Hylia_Johnny.png" />
+    <Resource Include="Images\Body\Hylia_Drag.png" />
+    <Resource Include="Images\Body\Hylia_Dyer.png" />
+    <Resource Include="Images\Body\King_Ghost.png" />
+    <Resource Include="Images\Body\King_Vagrant.png" />
+    <Resource Include="Images\Body\Korogu_Minister.png" />
+    <Resource Include="Images\Body\Link.png" />
+    <Resource Include="Images\Body\MamonoShop.png" />
+    <Resource Include="Images\Body\Rito_Hearts.png" />
+    <Resource Include="Images\Body\Rito_Hero.png" />
+    <Resource Include="Images\Body\Rito_Moto.png" />
+    <Resource Include="Images\Body\Rito_Musician.png" />
+    <Resource Include="Images\Body\Rito_Saki.png" />
+    <Resource Include="Images\Body\Rito_Teba.png" />
+    <Resource Include="Images\Body\Scientist_M_000.png" />
+    <Resource Include="Images\Body\Scientist_W_000.png" />
+    <Resource Include="Images\Body\Shiekah_Artist.png" />
+    <Resource Include="Images\Body\Shiekah_Escort_000.png" />
+    <Resource Include="Images\Body\Shiekah_Escort_001.png" />
+    <Resource Include="Images\Body\Shiekah_Heir.png" />
+    <Resource Include="Images\Body\Shiekah_Impa.png" />
+    <Resource Include="Images\Body\Shiekah_Maharishi.png" />
+    <Resource Include="Images\Body\Zora_Hero.png" />
+    <Resource Include="Images\Body\Zora_Priest.png" />
+    <Resource Include="Images\Body\Zora_Prince.png" />
+    <Resource Include="Images\Bust\Environmental.png" />
+    <Resource Include="Images\Bust\BumiiMaker.png" />
+    <Resource Include="Images\Bust\Gerudo_Champion.png" />
+    <Resource Include="Images\Bust\Gerudo_General.png" />
+    <Resource Include="Images\Bust\Gerudo_Hero.png" />
+    <Resource Include="Images\Bust\Gerudo_Jolien.png" />
+    <Resource Include="Images\Bust\Gerudo_Promoter.png" />
+    <Resource Include="Images\Bust\Gerudo_Queen.png" />
+    <Resource Include="Images\Bust\Gerudo_Shopkeeper_000.png" />
+    <Resource Include="Images\Bust\Gerudo_Shopkeeper_001.png" />
+    <Resource Include="Images\Bust\Goron_Darnia.png" />
+    <Resource Include="Images\Bust\Goron_Hero.png" />
+    <Resource Include="Images\Bust\Hylia_Carpenter_000.png" />
+    <Resource Include="Images\Bust\Hylia_Carpenter_001.png" />
+    <Resource Include="Images\Bust\Hylia_Carpenter_001_Wedding.png" />
+    <Resource Include="Images\Bust\Hylia_Johnny.png" />
+    <Resource Include="Images\Bust\Hylia_Drag.png" />
+    <Resource Include="Images\Bust\Hylia_Dyer.png" />
+    <Resource Include="Images\Bust\King_Ghost.png" />
+    <Resource Include="Images\Bust\King_Vagrant.png" />
+    <Resource Include="Images\Bust\Korogu_Minister.png" />
+    <Resource Include="Images\Bust\Link.png" />
+    <Resource Include="Images\Bust\MamonoShop.png" />
+    <Resource Include="Images\Bust\Rito_Hearts.png" />
+    <Resource Include="Images\Bust\Rito_Hero.png" />
+    <Resource Include="Images\Bust\Rito_Moto.png" />
+    <Resource Include="Images\Bust\Rito_Musician.png" />
+    <Resource Include="Images\Bust\Rito_Saki.png" />
+    <Resource Include="Images\Bust\Rito_Teba.png" />
+    <Resource Include="Images\Bust\Scientist_M_000.png" />
+    <Resource Include="Images\Bust\Scientist_W_000.png" />
+    <Resource Include="Images\Bust\Shiekah_Artist.png" />
+    <Resource Include="Images\Bust\Shiekah_Escort_000.png" />
+    <Resource Include="Images\Bust\Shiekah_Escort_001.png" />
+    <Resource Include="Images\Bust\Shiekah_Heir.png" />
+    <Resource Include="Images\Bust\Shiekah_Impa.png" />
+    <Resource Include="Images\Bust\Shiekah_Maharishi.png" />
+    <Resource Include="Images\Bust\Zora_Hero.png" />
+    <Resource Include="Images\Bust\Zora_Priest.png" />
+    <Resource Include="Images\Bust\Zora_Prince.png" />
+    <Resource Include="Images\DirectConnection_Icon.png" />
+    <Resource Include="Images\mainWindowBackground.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AampLibrary" Version="1.0.10" />
+    <PackageReference Include="BfresLibrary" Version="1.0.1" />
+    <PackageReference Include="CsYaz0" Version="1.0.2" />
+    <PackageReference Include="DiscordRichPresence" Version="1.2.1.24" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\ColoredLogo.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Plus.png" />
+    <Resource Include="Images\Refresh_Icon.png" />
+    <EmbeddedResource Include="Resources\NpcData.json" />
+    <EmbeddedResource Include="Source files\EnvironmentalModels.txt">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SarcWrapper\SarcWrapper.csproj" />
+    <ProjectReference Include="..\..\C#\BOTWM.Common\BOTWM.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="BfresLibrary">
+      <HintPath>..\..\..\NCF-Library\BfresLibrary\bin\Debug\net8.0-windows\BfresLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Backgrounds\A sunny day at the beach.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Bliss.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Dueling Peaks.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Gerudo Dwelling.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Hateno Tech Lab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Mysterious gate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Satori Blossom.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Selmies Spot.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Silent Swordswoman.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

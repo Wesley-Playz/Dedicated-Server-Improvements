@@ -8,10 +8,15 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Breath_of_the_Wild_Multiplayer.MVVM.Model;
+using Breath_of_the_Wild_Multiplayer.MVVM.ViewModel;
+using System.Diagnostics;
+
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.View
 {
@@ -25,16 +30,30 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.View
             InitializeComponent();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        // This is the handler for the 'Accept' button click event
+        private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
-            if (((TextBox)sender).Text == "")
+
+            if (string.IsNullOrWhiteSpace(PlayerNameTextBox.Text))
             {
-                ((TextBox)sender).Text = Properties.Settings.Default.playerName;
+                Properties.Settings.Default.playerName = "link";
+                Properties.Settings.Default.Save();
+                return;
+            }
+
+
+            bool isNameValid = PlayerNameTextBox.Text.All(c => c <= 127 && c != ';');
+
+            if (isNameValid)
+            {
+                Properties.Settings.Default.playerName = PlayerNameTextBox.Text;
+                Properties.Settings.Default.Save();
             }
             else
             {
-                Properties.Settings.Default.playerName = ((TextBox)sender).Text;
+                Properties.Settings.Default.playerName = "link";
                 Properties.Settings.Default.Save();
+                return;
             }
         }
     }

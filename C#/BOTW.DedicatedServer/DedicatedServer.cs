@@ -493,7 +493,27 @@ namespace BOTW.DedicatedServer
         public void setupCommands()
         {
             string AppdataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\BOTWM";
-            string fileName = "\\QuestFlagsNames.txt";
+
+            string fileName = "\\BOTWM.DedicatedServer.AppdataFiles.QuestFlagsNames.txt";
+            if (!File.Exists(AppdataFolder + fileName))
+            {
+                List<string> Resources = Assembly.GetExecutingAssembly().GetManifestResourceNames().Where(resource => resource.Contains("AppdataFiles")).ToList();
+
+                if (!Directory.Exists(AppdataFolder))
+                    Directory.CreateDirectory(AppdataFolder);
+
+                foreach (string resource in Resources)
+                {
+                    Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource);
+                    string output = $"{AppdataFolder}\\";
+                    using (FileStream AppdataFile = new FileStream(output, FileMode.Create))
+                    {
+                        byte[] b = new byte[s.Length + 1];
+                        s.Read(b, 0, Convert.ToInt32(s.Length));
+                        AppdataFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
+                    }
+                }
+            }
 
             string text = File.ReadAllText(AppdataFolder + fileName);
 

@@ -1,4 +1,5 @@
 ﻿using Breath_of_the_Wild_Multiplayer.MVVM.ViewModel;
+using DiscordRPC;
 using System.Windows.Controls;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.View
@@ -11,6 +12,20 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.View
         public ServerBrowser()
         {
             InitializeComponent();
+            if (DiscordRichPresence.client != null)
+            {
+                DiscordRichPresence.client.SetPresence(new RichPresence()
+                {
+                    Details = "Lobby Browser",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "image_big",
+                        LargeImageText = "V2.1 By the lon lon ranch",
+                        //SmallImageKey = "little_image",
+                        //SmallImageText = "Text little_image",
+                    }
+                });
+            }
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)

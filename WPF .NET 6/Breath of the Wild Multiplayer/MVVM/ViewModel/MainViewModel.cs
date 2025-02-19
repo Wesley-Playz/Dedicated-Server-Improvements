@@ -13,6 +13,7 @@ using Breath_of_the_Wild_Multiplayer.MVVM.Model;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Automation;
+using Breath_of_the_Wild_Multiplayer.MVVM.View;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 {
@@ -133,11 +134,22 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             barColor = new SolidColorBrush(Color.FromArgb(255, 63, 63, 63));
 
             changeTopView = new RelayCommand(o => this.updateTopView(o));
-
-            if (Properties.Settings.Default.playerName == "Link")
+            if (Properties.Settings.Default.CemuWarning == false)
+            {
+                this.customUpdateTopView(new CemuWarningModel(), () =>
+                {
+                    if (Properties.Settings.Default.playerName == "")
+                    {
+                        this.customUpdateTopView(new ChangeNameModel());
+                    }
+                });
+            }
+            else if (Properties.Settings.Default.playerName == "")
+            {
                 this.updateTopView(new ChangeNameModel());
-        }
+            }
 
+        }
         public void SearchUpdate()
         {
 #if (DEBUG)
@@ -181,6 +193,27 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
         {
             this.isTopView = true;
             this.currentTopView = topViewData;
+        }
+
+        private Action onTopViewClosed; // callback :thumbsup:
+        public void customUpdateTopView(object topViewData, Action onClose = null)
+        {
+            this.isTopView = true;
+            this.currentTopView = topViewData;
+            this.onTopViewClosed = onClose;
+        }
+
+        public void customCloseTopView()
+        {
+            this.isTopView = false;
+            this.currentTopView = null;
+
+            if (onTopViewClosed != null)
+            {
+                Action temp = onTopViewClosed;
+                onTopViewClosed = null; 
+                temp.Invoke();
+            }
         }
 
         public void closeTopView()

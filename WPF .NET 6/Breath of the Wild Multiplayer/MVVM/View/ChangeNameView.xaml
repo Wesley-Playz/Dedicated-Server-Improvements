@@ -8,8 +8,8 @@
              xmlns:properties="clr-namespace:Breath_of_the_Wild_Multiplayer.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel VerticalAlignment="Center">
-        <Label Content="Edit player name" 
+    <StackPanel VerticalAlignment="Center" Height="272">
+        <Label Content="Set your player name" 
                HorizontalAlignment="Center" 
                VerticalAlignment="Center"
                FontFamily="Roboto"
@@ -26,24 +26,35 @@
                Foreground="White"
                Margin="-10"/>
 
+        <Label Content="You can only put ascii characters in your name, you can't put semicolons" 
+               HorizontalAlignment="Center" 
+               VerticalAlignment="Center"
+               FontFamily="Roboto"
+               FontSize="16"
+               FontStyle="Italic"
+               Foreground="Red"
+               Margin="5"/>
+
         <TextBox 
-                Text="{Binding Source={x:Static properties:Settings.Default}, Path=playerName}" 
+                Text=""
+                Name="PlayerNameTextBox"
                 Style="{StaticResource modifiableTextBox}" 
                 BorderBrush="#FFC4C6CB" 
-                TextChanged="TextBox_TextChanged" 
                 MaxLength="18"
-                Margin="300, 0, 300, 0">
+                Margin="300, -5, 300, 0">
             <TextBox.Tag>
                 <sys:String>Player Name</sys:String>
             </TextBox.Tag>
         </TextBox>
 
         <Button 
+                x:Name="AcceptButton"
                 Width="135" 
                 Content="Accept" 
                 Grid.Row="3" 
                 Margin="10" 
                 Style="{StaticResource ConnectToServerButton}" 
-                Command="{Binding AcceptClick}"/>
+                Command="{Binding AcceptClick}"
+                Click="AcceptButton_Click"/>
     </StackPanel>
 </UserControl>
