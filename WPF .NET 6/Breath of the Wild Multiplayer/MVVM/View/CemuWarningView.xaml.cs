@@ -10,19 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.View
 {
     /// <summary>
-    /// Lógica de interacción para IngameMenuView.xaml
+    /// Logique d'interaction pour Window1.xaml
     /// </summary>
-    public partial class IngameMenuView : UserControl
+    public partial class CemuWarningView : UserControl
     {
-        public IngameMenuView()
+        public CemuWarningView()
         {
             InitializeComponent();
+            Properties.Settings.Default.CemuWarning = true;
+            Properties.Settings.Default.Save();
         }
     }
 }

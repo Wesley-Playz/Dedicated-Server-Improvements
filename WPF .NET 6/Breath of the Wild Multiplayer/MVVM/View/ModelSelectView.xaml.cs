@@ -1,4 +1,5 @@
 ﻿using Breath_of_the_Wild_Multiplayer.MVVM.ViewModel;
+using DiscordRPC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,11 +25,23 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.View
         public ModelSelectView()
         {
             InitializeComponent();
-
             ModelSelectModel dataContext = (ModelSelectModel)this.DataContext;
             dataContext.BodyImage = BodyPicture;
             dataContext.UpdateBodyImage();
-
+            if (DiscordRichPresence.client != null)
+            {
+                DiscordRichPresence.client.SetPresence(new RichPresence()
+                {
+                    Details = "Model Selection",
+                    Assets = new Assets()
+                    {
+                        LargeImageKey = "image_big",
+                        LargeImageText = "V2.1 by JoLiLol",
+                        //SmallImageKey = "little_image",
+                        //SmallImageText = "Text little_image",
+                    }
+                });
+            }
         }
 
         private void ScrollViewer_ScrollChanged(object sender, ScrollChangedEventArgs e)
