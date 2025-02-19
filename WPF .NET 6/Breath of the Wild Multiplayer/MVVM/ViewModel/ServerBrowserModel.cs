@@ -198,7 +198,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
                                 Assets = new Assets()
                                 {
                                     LargeImageKey = "image_big",
-                                    LargeImageText = "V2.1 by JoLiLol",
+                                    LargeImageText = "V2.1 By the lon lon ranch",
                                     //SmallImageKey = "little_image",
                                     //SmallImageText = "Text little_image",
                                 }
@@ -213,7 +213,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
                                 Assets = new Assets()
                                 {
                                     LargeImageKey = "image_big",
-                                    LargeImageText = "V2.1 by JoLiLol",
+                                    LargeImageText = "V2.1 By the lon lon ranch",
                                     //SmallImageKey = "little_image",
                                     //SmallImageText = "Text little_image",
                                 }
