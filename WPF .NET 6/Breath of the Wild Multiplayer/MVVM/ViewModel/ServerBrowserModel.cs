@@ -10,7 +10,15 @@ using Breath_of_the_Wild_Multiplayer.MVVM.Model.DTO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text;
-using System.CodeDom.Compiler;
+using DiscordRPC;
+using System.Threading;
+using System.Windows;
+using System.Windows.Controls;
+using Breath_of_the_Wild_Multiplayer;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Net;
+using System.Xml.Linq;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 {
@@ -107,6 +115,126 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             });
         }
 
+        public static bool CemuSettingsOGRPCState;
+
+        public void GetOGCemuRPC()
+        {
+            string CemuDir;
+
+            string CemuSettings = File.ReadAllText(Properties.Settings.Default.bcmlLocation);
+            Dictionary<string, string> settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(CemuSettings)!;
+            CemuDir = settings["cemu_dir"];
+            string CemuSetting = $"{CemuDir}/settings.xml";
+            try
+            {
+                XDocument xmlDoc = XDocument.Load(CemuSetting);
+
+                XElement discordPresence = xmlDoc.Descendants("use_discord_presence").FirstOrDefault();
+
+                if (discordPresence != null)
+                {
+                    CemuSettingsOGRPCState = bool.Parse(discordPresence.Value);
+                }
+            }
+            catch (Exception ex)
+            {
+                SharedData.LoadErrorMessage(ex.Message);
+                return;
+            }
+        }
+
+        public void ModifyRPCInCemu(string state)
+        {
+            string CemuDir;
+
+            string CemuSettings = File.ReadAllText(Properties.Settings.Default.bcmlLocation);
+            Dictionary<string, string> settings = JsonConvert.DeserializeObject<Dictionary<string, string>>(CemuSettings)!;
+            CemuDir = settings["cemu_dir"];
+            string CemuSetting = $"{CemuDir}/settings.xml";
+            try
+            {
+                XDocument xmlDoc = XDocument.Load(CemuSetting);
+
+                XElement discordPresence = xmlDoc.Descendants("use_discord_presence").FirstOrDefault();
+
+                if (discordPresence != null)
+                {
+                    discordPresence.Value = state;
+
+                    xmlDoc.Save(CemuSetting);
+                }
+            }
+            catch (Exception ex)
+            {
+                SharedData.LoadErrorMessage(ex.Message);
+                return;
+            }
+        }
+
+
+        void DiscrodUpdate()
+        {
+            serverDataModel server = _selectedServer[0];
+            int NumberOfPlayers = -1; // impossible number
+            int OldNumber = -2; // impossible number
+            string actualPlayer = Properties.Settings.Default.playerName;
+            bool DisplayServer = Properties.Settings.Default.RPCDisplayServer;
+            Thread.Sleep(1000);
+            while (true)
+            {
+                server.pingServer();
+                NumberOfPlayers = server.playerList.Count;
+
+                if (server.playerList.ContainsValue(actualPlayer) && server.open)  // we verify if the player is in the server, if the server is open and if the number of players has changed.
+                {
+                    if (OldNumber != NumberOfPlayers)
+                    {
+                        if (DisplayServer)
+                        {
+                            DiscordRichPresence.client.SetPresence(new RichPresence()
+                            {
+                                Details = $"Playing in {server.Name}, Gamemode: {server.playStyle}",
+                                State = $"Players connected: {NumberOfPlayers}/{server.capacity}",
+                                Assets = new Assets()
+                                {
+                                    LargeImageKey = "image_big",
+                                    LargeImageText = "V2.1 by JoLiLol",
+                                    //SmallImageKey = "little_image",
+                                    //SmallImageText = "Text little_image",
+                                }
+                            });
+                        }
+                        else
+                        {
+                            DiscordRichPresence.client.SetPresence(new RichPresence()
+                            {
+                                Details = $"Gamemode: {server.playStyle}",
+                                State = $"Players connected: {NumberOfPlayers}/{server.capacity}",
+                                Assets = new Assets()
+                                {
+                                    LargeImageKey = "image_big",
+                                    LargeImageText = "V2.1 by JoLiLol",
+                                    //SmallImageKey = "little_image",
+                                    //SmallImageText = "Text little_image",
+                                }
+                            });
+                        }
+                    }
+                    Thread.Sleep(10000);
+                }
+                else
+                {
+                    if (CemuSettingsOGRPCState == true)
+                    {
+                        ModifyRPCInCemu("true");
+                    }
+
+                    break;
+                }
+            }
+        }
+
+
         void changeSelected(object newSelection)
         {
             if(lastSelected != -1)
@@ -185,6 +313,9 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 
             serverToJoin.pingServer();
 
+            IPResolver resolver = new IPResolver();
+            string ipToUse = resolver.ResolveIP(serverToJoin.IP);
+
             if (!serverToJoin.open)
             {
                 if (directConnection)
@@ -194,6 +325,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             }
 
             CharacterModel charModel = JsonConvert.DeserializeObject<CharacterModel>(Properties.Settings.Default.playerModel);
+
 
             SharedData.SetLoadingMessage("Loading player data...");
 
@@ -233,6 +365,12 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 
             List<Process> ProcessesToFilter = Injector.GetProcesses("Cemu");
 
+            if (DiscordRichPresence.client != null)
+            {
+                GetOGCemuRPC();
+                ModifyRPCInCemu("false");
+            }
+
             SharedData.SetLoadingMessage("Starting Cemu...");
 
             await Task.Run(() => Process.Start($"{CemuDir}/cemu.exe", $"-g \"{GameDir.Replace("content", "code")}/U-King.rpx\""));
@@ -261,7 +399,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 
             SharedData.SetLoadingMessage("Connecting to server...");
 
-            List<byte> instruction = Encoding.UTF8.GetBytes($"!connect;{serverToJoin.IP};{serverToJoin.Port};{serverToJoin.Password};{Properties.Settings.Default.playerName};{serverToJoin.Name};{(int)charModel.Type};").ToList();
+            List<byte> instruction = Encoding.UTF8.GetBytes($"!connect;{ipToUse};{serverToJoin.Port};{serverToJoin.Password};{Properties.Settings.Default.playerName};{serverToJoin.Name};{(int)charModel.Type};").ToList();
 
             if ((int)charModel.Type < 2)
             {
@@ -291,7 +429,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
                             throw new ApplicationException("Could not connect to server. GetResponseFromJsonSimplify[0] contained non number text.");
                         }
 
-                        return BOTWM.Common.ServerError.GetErrorMessage(iresponse) + " (error code " + iresponse.ToString() + ")";
+                        return BOTWM.Common.ServerError.GetErrorMessage(iresponse);
                     }
                     else
                     {
@@ -318,12 +456,23 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             SharedData.SetLoadingMessage("Starting overlay...");
 
             await Task.Delay(2000);
-
+            MainWindow mainWindow = (MainWindow)Application.Current.MainWindow; // hide the version when you run the game
+            mainWindow.HideTextVersion();
             SharedData.MainView.currentView = SharedData.MainView.IngameMenuVM;
             SharedData.MainView.disableBackground = true;
             SharedData.MainView.Window.Topmost = true;
-
             CemuFollower.Setup(CemuProcess);
+
+            ////////////////////////////////////  rich presence part
+            
+            if (DiscordRichPresence.client != null)
+            {
+                Thread nouveauThread = new Thread(DiscrodUpdate);
+                nouveauThread.Start();
+            }
+
+            ////////////////////////////////////
+
             NamedPipes.StartListenThread();
 
             SharedData.SetLoadingMessage();

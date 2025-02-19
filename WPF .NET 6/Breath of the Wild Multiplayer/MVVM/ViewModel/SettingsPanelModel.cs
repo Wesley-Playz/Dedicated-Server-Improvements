@@ -8,6 +8,7 @@ using Breath_of_the_Wild_Multiplayer.MVVM.Model;
 using System.Linq;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using DiscordRPC;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 {
@@ -25,6 +26,36 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
                 OnPropertyChanged();
             }
         }
+        private bool _enableDiscordRPC;
+        
+        public bool EnableDiscordRPC
+        {
+            get { return _enableDiscordRPC; }
+            set {
+                _enableDiscordRPC = value;
+                Properties.Settings.Default.UseRPC = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+            
+        }
+
+        private bool _RPCDisplayServer;
+
+        public bool RPCDisplayServer
+        {
+            get { return _RPCDisplayServer; }
+            set
+            {
+                _RPCDisplayServer = value;
+                Properties.Settings.Default.RPCDisplayServer = value;
+                Properties.Settings.Default.Save();
+                OnPropertyChanged();
+            }
+
+        }
+
+
 
         public RelayCommand backgroundLeftButton { get; set; }
         public RelayCommand backgroundRightButton { get; set; }
@@ -53,6 +84,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
         }
 
         public RelayCommand discordButton { get; set; }
+        public RelayCommand ForkdiscordButton { get; set; }
         public RelayCommand bcmlButton { get; set; }
 
         static private string BackgroundsPath = Directory.GetCurrentDirectory() + "/Backgrounds/";
@@ -77,6 +109,8 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             timer.Tick += new EventHandler(timer_Tick);
 
             this.EnableCustomModels = Properties.Settings.Default.playAsModel;
+            this.EnableDiscordRPC = Properties.Settings.Default.UseRPC;
+            this.RPCDisplayServer = Properties.Settings.Default.RPCDisplayServer;
 
             backgroundLeftButton = new RelayCommand(async o =>
             {
@@ -137,6 +171,12 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
             {
                 Properties.Settings.Default.background = "Random";
                 Properties.Settings.Default.playerName = "Link";
+                Properties.Settings.Default.playAsModel = false;
+                Properties.Settings.Default.UseRPC = true;
+                Properties.Settings.Default.RPCDisplayServer = true;
+                this.EnableCustomModels = Properties.Settings.Default.playAsModel;
+                this.EnableDiscordRPC = Properties.Settings.Default.UseRPC;
+                this.RPCDisplayServer = Properties.Settings.Default.RPCDisplayServer;
                 index = 0;
                 updateBackground();
                 Properties.Settings.Default.Save();
@@ -144,6 +184,10 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 
             discordButton = new RelayCommand(o => {
                 Process.Start(new ProcessStartInfo("https://discord.gg/sqeKHhBJse") { UseShellExecute=true});
+            });
+
+            ForkdiscordButton = new RelayCommand(o => {
+                Process.Start(new ProcessStartInfo("https://discord.gg/VeccXh4ydN") { UseShellExecute = true });
             });
 
             bcmlButton = new RelayCommand(o =>
