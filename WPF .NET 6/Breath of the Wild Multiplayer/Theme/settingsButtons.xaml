@@ -160,6 +160,239 @@
         </Style.Triggers>
     </Style>
 
+    <Style TargetType="CheckBox" x:Key="discordCustomCheckbox">
+        <Setter Property="Background" Value="#AA000000"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="#FF626262"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Border Background="#88232323" Margin="15" CornerRadius="5">
+                        <Border Background="Transparent" BorderThickness="2" BorderBrush="#FF9A9A9A" Margin="2" CornerRadius="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.6*"/>
+                                    <ColumnDefinition Width="0.6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="{TemplateBinding Content}"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Roboto"
+                                       FontSize="26"
+                                       FontStyle="Italic"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Margin="5, 0, 0, 0"/>
+                                <Border Background="{TemplateBinding Background}" Grid.Column="1" Margin="10" Width="200" CornerRadius="3">
+                                    <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" Margin="2">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.6*"/>
+                                                <ColumnDefinition Width="0.4*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Border
+                                                CornerRadius="0, 3, 3, 0"
+                                                HorizontalAlignment="Stretch"
+                                                Grid.Column="0">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding EnableDiscordRPC}" Value="True">
+                                                                <Setter Property="Background" Value="#CCFFFFFF"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+
+                                                <Label Content="ON"
+                                                       HorizontalAlignment="Stretch"
+                                                       HorizontalContentAlignment="Center"
+                                                       FontFamily="Roboto"
+                                                       FontSize="22"
+                                                       FontStyle="Italic"
+                                                       Foreground="White">
+
+                                                    <Label.Effect>
+                                                        <DropShadowEffect Color="Black" ShadowDepth="0" Opacity="1" BlurRadius="20"/>
+                                                    </Label.Effect>
+                                                </Label>
+                                            </Border>
+
+                                            <Border
+                                                CornerRadius="3, 0, 0, 3"
+                                                HorizontalAlignment="Stretch"
+                                                Grid.Column="1">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="Background" Value="Transparent"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding EnableDiscordRPC}" Value="False">
+                                                                <Setter Property="Background" Value="#CCFFFFFF"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+
+                                                <Label Content="OFF"
+                                                       HorizontalAlignment="Stretch"
+                                                       HorizontalContentAlignment="Center"
+                                                       FontFamily="Roboto"
+                                                       FontSize="22"
+                                                       FontStyle="Italic"
+                                                       Foreground="White">
+
+                                                    <Label.Effect>
+                                                        <DropShadowEffect Color="Black" ShadowDepth="0" Opacity="1" BlurRadius="20"/>
+                                                    </Label.Effect>
+                                                </Label>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" Value="#FF808080"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#CC000000"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style TargetType="ToggleButton" x:Key="CustomCheckBox">
+        <Setter Property="Background" Value="#AA000000"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="#FF626262"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        Width="50"
+                        Height="50">
+                        <Grid>
+                            <!-- Carré transparent pour cliquer dessus -->
+                            <Rectangle Width="40" Height="40" Fill="Transparent"/>
+
+                            <!-- Checkmark -->
+                            <Path x:Name="CheckMark"
+                              Data="M8,12 L14,22 L24,8"
+                              Stroke="White"
+                              StrokeThickness="4"
+                              StrokeEndLineCap="Round"
+                              Visibility="Collapsed"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Animation quand activé -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                            <Setter Property="Background" Value="#CC000000"/>
+                            <!-- Changement de couleur -->
+                            <Setter Property="BorderBrush" Value="#CC000000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="CheckBox" x:Key="discordServerCustomCheckbox">
+        <Setter Property="Background" Value="#AA000000"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderBrush" Value="#FF626262"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Border Background="#88232323" Margin="15" CornerRadius="5">
+                        <Border Background="Transparent" BorderThickness="2" BorderBrush="#FF9A9A9A" Margin="2" CornerRadius="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.5*"/>
+                                    <ColumnDefinition Width="0.1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="{TemplateBinding Content}"
+                                       VerticalAlignment="Center"
+                                       FontFamily="Roboto"
+                                       FontSize="26"
+                                       FontStyle="Italic"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Margin="5, 0, 0, 0"/>
+                                <Border Background="{TemplateBinding Background}" Grid.Column="1" Margin="10" Width="43" CornerRadius="3">
+                                    <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" Margin="2">
+                                        <Grid>
+                                            
+                                            <ToggleButton Style="{StaticResource CustomCheckBox}" IsChecked="{Binding RPCDisplayServer, Mode=TwoWay}"/>
+                                            
+                                        </Grid>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="BorderBrush" Value="#FF808080"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#CC000000"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="DiscordButtons">
+        <Setter Property="Width" Value="90"/>
+        <Setter Property="Height" Value="85"/>
+        <Setter Property="Margin" Value="0, 0, 0, 0"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontStyle" Value="Italic"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="#CCD9D9D9"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="Transparent">
+                        <StackPanel>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Source="{TemplateBinding Tag}">
+                                <Image.Effect>
+                                    <DropShadowEffect ShadowDepth="0"
+                                                      Color="Black"
+                                                      Opacity="1"
+                                                      BlurRadius="10"/>
+                                </Image.Effect>
+                            </Image>
+                            <Rectangle Fill="{TemplateBinding BorderBrush}" Width="890" Height="2" Margin="0, 10, 0, 0"/>
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderBrush" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style TargetType="customControls:optionsLabel" x:Key="optionsCustomLabel">
 
         <Setter Property="Template">
