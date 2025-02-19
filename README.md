@@ -1,5 +1,5 @@
-# MilkBarLauncher
-This is the repository for Milk Bar Launcher. Here you can find all of the projects needed to build this project
+# Lon Lon MilkBar
+This is the repository for Lon Lon Milkbar (Milk Bar Launcher). Here you can find all of the projects needed to build this project
 
 **There are four important folders in this project listed below:**
 
