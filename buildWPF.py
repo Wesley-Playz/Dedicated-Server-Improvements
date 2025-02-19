@@ -37,6 +37,7 @@ def copyFolder(src, dest, filters = []):
 def BuildProject(projectFolder):
     subprocess.call(["dotnet", "clean", projectFolder])
     subprocess.call(["dotnet", "build", projectFolder, "/p:Configuration=Release", "/p:Platform=\"Any CPU\""])
+    subprocess.call(["dotnet", "publish", projectFolder, "/p:Configuration=Release", "/p:Platform=\"Any CPU\""])
 
 def BuildDLL():
     subprocess.call(["msbuild", r"DLL\InjectDLL\InjectDLL.sln", "/p:Configuration=Release"])
