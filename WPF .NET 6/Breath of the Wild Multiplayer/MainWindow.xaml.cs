@@ -9,14 +9,33 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using DiscordRPC;
 
 namespace Breath_of_the_Wild_Multiplayer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    
+    public class DiscordRichPresence
+    {
+        public static DiscordRpcClient client;
+    
+        public static void Initialize()
+        {
+            client = new DiscordRpcClient("1339782150471290904");
+            client.Initialize();
+        }
+    }
+
     public partial class MainWindow : Window
     {
+
+        public void HideTextVersion()
+        {
+            VersionText.Visibility = Visibility.Collapsed; // hide the version text
+        }
+
         public MainWindow()
         {
             CopyAppdataFiles();
@@ -32,6 +51,13 @@ namespace Breath_of_the_Wild_Multiplayer
                 }
             }
 
+            Asserts.Asserts_function(); // call the asserts function
+
+            if (Properties.Settings.Default.UseRPC)
+            {
+                DiscordRichPresence.Initialize();
+            }
+
             InitializeComponent();
 
             var viewModel = DataContext as MainViewModel;
@@ -44,6 +70,11 @@ namespace Breath_of_the_Wild_Multiplayer
 
         protected void CloseClick(object sender, RoutedEventArgs e)
         {
+            if (DiscordRichPresence.client != null)
+            {
+                DiscordRichPresence.client.ClearPresence();
+                DiscordRichPresence.client.Dispose();
+            }
             Close();
         }
 

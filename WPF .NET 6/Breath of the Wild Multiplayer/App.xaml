@@ -56,6 +56,10 @@
                 <view:ChangeNameView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:CemuWarningModel}">
+                <view:CemuWarningView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:ModelSelectModel}">
                 <view:ModelSelectView/>
             </DataTemplate>
