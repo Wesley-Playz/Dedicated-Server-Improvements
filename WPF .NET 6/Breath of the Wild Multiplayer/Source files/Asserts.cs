@@ -33,6 +33,13 @@ namespace Breath_of_the_Wild_Multiplayer
                 Environment.Exit(0);
 
             }
+
+            if (!Directory.Exists($"{bcmlPath}/Model"))
+            {
+                Error.ShowErrorPopup("The mods are not correctly installed in bcml");
+                Environment.Exit(0);
+            }
+
             // get the cemu path
             try
             {
