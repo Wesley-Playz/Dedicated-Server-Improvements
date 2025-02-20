@@ -111,5 +111,10 @@ namespace Breath_of_the_Wild_Multiplayer
                 }
             }
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
