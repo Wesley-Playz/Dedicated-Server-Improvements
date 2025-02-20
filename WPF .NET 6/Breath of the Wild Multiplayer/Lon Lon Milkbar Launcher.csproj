@@ -24,7 +24,6 @@
     <None Remove="AppdataFiles\WeaponDamages.txt" />
     <None Remove="Images\AddServer_Icon.png" />
     <None Remove="Images\add_circle_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
-	<None Remove="Images\discord_Logo.png" />
     <None Remove="Images\ArmorSync.png" />
     <None Remove="Images\Body\BumiiMaker.png" />
     <None Remove="Images\Body\Gerudo_Champion.png" />
@@ -128,7 +127,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\lonlonmilkbar.png" />
     <Resource Include="Images\dns_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
     <Resource Include="Images\keyboard_arrow_left_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
     <Resource Include="Images\keyboard_arrow_right_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
@@ -153,7 +151,6 @@
     <EmbeddedResource Include="AppdataFiles\WeaponDamages.txt" />
     <EmbeddedResource Include="Resources\Dummy.bumii" />
     <Resource Include="Images\AddServer_Icon.png" />
-	<Resource Include="Images\discord_Logo.png" />
     <Resource Include="Images\ArmorSync.png" />
     <Resource Include="Images\Body\BumiiMaker.png" />
     <Resource Include="Images\Body\Gerudo_Champion.png" />
