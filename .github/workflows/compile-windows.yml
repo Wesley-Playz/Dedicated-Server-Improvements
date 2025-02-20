@@ -25,15 +25,15 @@ jobs:
     - name: Move Dedicated server to .
       run: |
         move Build\DedicatedServer .
-    - name: Rename Build to MilkBarLauncher
+    - name: Rename Build to Lon-Lon-MilkBar
       shell: pwsh
       run: |
-        Rename-Item -Path "Build" -NewName "MilkBarLauncher"
-    - name: Upload MilkBarLauncher
+        Rename-Item -Path "Build" -NewName "Lon-Lon-MilkBar"
+    - name: Upload Lon-Lon-MilkBar
       uses: actions/upload-artifact@v4
       with:
-        name: MilkBarLauncher
-        path: MilkBarLauncher
+        name: Lon-Lon-MilkBar
+        path: Lon-Lon-MilkBar
         if-no-files-found: error
         compression-level: 9
     - name: Upload DedicatedServer
