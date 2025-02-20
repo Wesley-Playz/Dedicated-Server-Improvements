@@ -85,7 +85,7 @@
                                 <Label Content="{Binding SelectedModel.Name}" 
                                        Foreground="White"
                                        FontFamily="Roboto"
-                                       FontStyle="Italic"
+                                       FontStyle="Normal"
                                        FontWeight="Bold"
                                        FontSize="24"/>
                                 <Rectangle Height="1" Fill="#CC8C8C8C" Margin="5,0,0,0"/>
@@ -97,7 +97,7 @@
                                     <TextBlock Text="{Binding SelectedModel.Description}" 
                                        Foreground="White"
                                        FontFamily="Roboto"
-                                       FontStyle="Italic"
+                                       FontStyle="Normal"
                                        FontSize="16"
                                        TextWrapping="WrapWithOverflow"
                                        Margin="5"/>

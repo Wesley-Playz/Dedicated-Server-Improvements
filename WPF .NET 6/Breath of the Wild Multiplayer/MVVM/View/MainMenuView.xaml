@@ -94,7 +94,7 @@
            Foreground="White"
            FontSize="30"
            FontFamily="Roboto"
-           FontStyle="Italic"
+           FontStyle="Normal"
            FontWeight="Bold"
            Margin="0,5,0,0"
            Width="250"
@@ -122,7 +122,7 @@
                                                 <Path Width="20" Height="20" Stretch="Fill" VerticalAlignment="Bottom" Stroke="White" Fill="White" Data="F1 M 319.344,237.333L 287.328,218.849L 287.328,255.818L 319.344,237.333 Z "/>
                                             </Border>
                                             <Label Content="{Binding rightWindow}" Style="{StaticResource buttonLabelAnim}"
-                                       FontFamily="Roboto" FontStyle="Italic" FontSize="14" HorizontalAlignment="Center" Foreground="White" Margin="0,1,0,10"/>
+                                       FontFamily="Roboto" FontStyle="Normal" FontSize="14" HorizontalAlignment="Center" Foreground="White" Margin="0,1,0,10"/>
                                         </StackPanel>
                                     </Border>
                                 </ControlTemplate>

@@ -9,7 +9,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <OutputPath>..\..\Build</OutputPath>
-    <ApplicationIcon>Icon_C.ico</ApplicationIcon>
+    <ApplicationIcon>LonLonMilkbarIcon.ico</ApplicationIcon>
     <PackageId>Lon Lon Milkbar Launcher</PackageId>
     <Authors></Authors>
     <Company>Lon Lon Ranch</Company>
@@ -23,7 +23,7 @@
     <None Remove="AppdataFiles\QuestFlagsNames.txt" />
     <None Remove="AppdataFiles\WeaponDamages.txt" />
     <None Remove="Images\AddServer_Icon.png" />
-	<None Remove="Images\discord_Logo.png" />
+    <None Remove="Images\add_circle_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
     <None Remove="Images\ArmorSync.png" />
     <None Remove="Images\Body\BumiiMaker.png" />
     <None Remove="Images\Body\Gerudo_Champion.png" />
@@ -106,9 +106,17 @@
     <None Remove="Images\Bust\Zora_Prince.png" />
     <None Remove="Images\ColoredLogo.png" />
     <None Remove="Images\DirectConnection_Icon.png" />
+    <None Remove="Images\dns_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
+    <None Remove="Images\keyboard_arrow_left_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
+    <None Remove="Images\keyboard_arrow_right_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
+    <None Remove="Images\lonlonmilkbar.png" />
+    <None Remove="Images\lonlon_Logo.png" />
     <None Remove="Images\mainWindowBackground.png" />
+    <None Remove="Images\milkbar_Logo.png" />
     <None Remove="Images\Plus.png" />
+    <None Remove="Images\refresh_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
     <None Remove="Images\Refresh_Icon.png" />
+    <None Remove="LonLonMilkbarIcon.ico" />
     <None Remove="Resources\aapmLib.exe" />
     <None Remove="Resources\aapmLib.py" />
     <None Remove="Resources\bumii_IO.exe" />
@@ -119,7 +127,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Icon_C.ico" />
+    <Resource Include="Images\dns_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
+    <Resource Include="Images\keyboard_arrow_left_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
+    <Resource Include="Images\keyboard_arrow_right_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
+    <Resource Include="Images\lonlon_Logo.png" />
+    <Content Include="LonLonMilkbarIcon.ico" />
     <Content Include="Resources\aapmLib.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -132,13 +144,13 @@
     <Content Include="Resources\InjectDLL.dll">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\add_circle_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
     <EmbeddedResource Include="AppdataFiles\ArmorMapping.txt" />
     <EmbeddedResource Include="AppdataFiles\QuestFlags.txt" />
     <EmbeddedResource Include="AppdataFiles\QuestFlagsNames.txt" />
     <EmbeddedResource Include="AppdataFiles\WeaponDamages.txt" />
     <EmbeddedResource Include="Resources\Dummy.bumii" />
     <Resource Include="Images\AddServer_Icon.png" />
-	<Resource Include="Images\discord_Logo.png" />
     <Resource Include="Images\ArmorSync.png" />
     <Resource Include="Images\Body\BumiiMaker.png" />
     <Resource Include="Images\Body\Gerudo_Champion.png" />
@@ -236,7 +248,9 @@
     <Resource Include="Images\ColoredLogo.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\milkbar_Logo.png" />
     <Resource Include="Images\Plus.png" />
+    <Resource Include="Images\refresh_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png" />
     <Resource Include="Images\Refresh_Icon.png" />
     <EmbeddedResource Include="Resources\NpcData.json" />
     <EmbeddedResource Include="Source files\EnvironmentalModels.txt">
