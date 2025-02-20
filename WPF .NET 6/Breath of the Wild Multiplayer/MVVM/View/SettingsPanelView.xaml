@@ -126,15 +126,15 @@
                 </Button.Tag>
             </Button>
 
-            <Button Content="original" Style="{StaticResource DiscordButtons}" Command="{Binding discordButton}" Margin="-495,5,450,0" Grid.Row="2">
+            <Button Content="Milkbar Studios" Style="{StaticResource DiscordButtons}" Command="{Binding discordButton}" Margin="-495,5,450,0" Grid.Row="2" Width="150px">
                 <Button.Tag>
-                    <BitmapImage UriSource="/Images/discord_Logo.png"/>
+                    <BitmapImage UriSource="/Images/milkbar_Logo.png"/>
                 </Button.Tag>
             </Button>
 
-            <Button Content="fork" Style="{StaticResource DiscordButtons}" Command="{Binding ForkdiscordButton}" Margin="-628,5,620,0" Grid.Row="2">
+            <Button Content="Lon Lon Ranch" Style="{StaticResource DiscordButtons}" Command="{Binding ForkdiscordButton}" Margin="-628,5,620,0" Grid.Row="2" Width="150px">
                 <Button.Tag>
-                    <BitmapImage UriSource="/Images/discord_Logo.png"/>
+                    <BitmapImage UriSource="/Images/lonlon_Logo.png"/>
                 </Button.Tag>
             </Button>
 
