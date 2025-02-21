@@ -77,6 +77,15 @@ def ClearFilesWithFilter(FolderToClear, filters = []):
         if os.path.isdir(fr"{FolderToClear}\{file}"):
             ClearFilesWithFilter(fr"{FolderToClear}\{file}", filters)
 
+def FixPublish():
+    ClearFolder(Output, ["publish", "DedicatedServer"])
+    ClearFolder(f"{Output}\\DedicatedServer", ["publish"])
+    copyFolder(f"{Output}\\publish", Output)
+    copyFolder(f"{Output}\\DedicatedServer\\publish", f"{Output}\\DedicatedServer")
+    rmtree(f"{Output}\\publish")
+    rmtree(f"{Output}\\DedicatedServer\\publish")
+    os.mkdir(f"{Output}\\BNPs")
+
 # ClearFolder(ReleaseFolder, ["git", "Resources"])
 
 if(os.path.exists(Output)):
@@ -88,6 +97,10 @@ if not sys.platform == "linux":
     BuildDLL()
     os.mkdir(f"{Output}\\BNPs")
 
+    FixPublish()
+
     for file in os.listdir(f"{os.getcwd()}/BNP Files"):
         if not ".bnp" in file: continue
         copyFile(f"{os.getcwd()}/BNP Files/{file}", f"{Output}\\BNPs\\{file}")
+else:
+    FixPublish()
