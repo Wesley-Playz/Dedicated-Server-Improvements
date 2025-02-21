@@ -26,10 +26,31 @@ namespace Breath_of_the_Wild_Multiplayer
             client = new DiscordRpcClient("1339782150471290904");
             client.Initialize();
         }
+
+        public static void updateRPC(string Details, string State)
+        {
+            client.SetPresence(new RichPresence()
+            {
+                Details = Details,
+                State = State,
+                Assets = new Assets()
+                {
+                    LargeImageKey = "image_big",
+                    LargeImageText = $"V{MainWindow.VERSION} By the lon lon ranch",
+                    //SmallImageKey = "little_image",
+                    //SmallImageText = "Text little_image",
+                }
+            });
+        }
+
+
+
     }
 
     public partial class MainWindow : Window
     {
+
+        public static string VERSION = "2.2"; // the version number of the launcher
 
         public void HideTextVersion()
         {
