@@ -296,6 +296,9 @@
     <None Update="Backgrounds\Bliss.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Backgrounds\Centered.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Backgrounds\Dueling Peaks.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -303,6 +306,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Backgrounds\Hateno Tech Lab.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\LonLon.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Backgrounds\Milky.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Backgrounds\Mysterious gate.png">
