@@ -11,7 +11,7 @@
     <UserControl.DataContext>
         <viewModel:ServerBrowserModel/>
     </UserControl.DataContext>
-    
+
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -23,7 +23,7 @@
             <Path.Data>
                 <GeometryGroup>
                     <LineGeometry StartPoint="-500,1" EndPoint="2000,1"/>
-                    <LineGeometry StartPoint="-500,496" EndPoint="2000,496"/>
+                    <LineGeometry StartPoint="-500,600" EndPoint="2000,600"/>
                 </GeometryGroup>
             </Path.Data>
         </Path>
@@ -38,31 +38,54 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <Button Content="Add Server" Style="{StaticResource ConnectionButtons}" Command="{Binding addServerClick}">
                         <Button.Tag>
-                            <BitmapImage UriSource="/Images/AddServer_Icon.png"/>
+                            <BitmapImage UriSource="/Images/add_circle_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png"/>
                         </Button.Tag>
                     </Button>
 
                     <Button Content="Direct IP" Style="{StaticResource ConnectionButtons}" Command="{Binding directConnectClick}">
                         <Button.Tag>
-                            <BitmapImage UriSource="/Images/DirectConnection_Icon.png"/>
+                            <BitmapImage UriSource="/Images/dns_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png"/>
                         </Button.Tag>
                     </Button>
 
                     <Button Content="Refresh" Style="{StaticResource ConnectionButtons}" Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ServerBrowser}}, Path=DataContext.refreshClick}">
                         <Button.Tag>
-                            <BitmapImage UriSource="/Images/Refresh_Icon.png"/>
+                            <BitmapImage UriSource="/Images/refresh_30dp_E8EAED_FILL1_wght700_GRAD0_opsz24.png"/>
                         </Button.Tag>
                     </Button>
                 </StackPanel>
-                
 
-                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Style="{StaticResource Scroll}" Tag="{Binding scrollState, Mode=TwoWay}" ScrollChanged="ScrollViewer_ScrollChanged">
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Resources>
                         <Style TargetType="ScrollBar">
+                            <Setter Property="Width" Value="10"/>
+                            <!-- Scrollbar width -->
                             <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ScrollBar">
+                                        <Grid x:Name="Root" Background="{TemplateBinding Background}">
+                                            <Track x:Name="Track">
+                                                <!-- Removed Increase/Decrease buttons -->
+                                                <Track.Thumb>
+                                                    <Thumb x:Name="Thumb"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Width="20"
+                                                           Opacity="0"
+                                         BorderBrush="Transparent"/>
+                                                    <!-- Rounded thumb -->
+                                                </Track.Thumb>
+                                            </Track>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
                         </Style>
                     </ScrollViewer.Resources>
-                    <ItemsControl Name="serverList" ItemsSource="{Binding serversToShow}" Background="Transparent">
+                    <ItemsControl Name="serverList" ItemsSource="{Binding serversToShow}" Background="Transparent" Height="500">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Margin="15, 5, 15, 5"/>
@@ -119,7 +142,7 @@
                         <Label Content="{Binding selectedServer[0].Name}"
                            Foreground="White"
                            FontFamily="Roboto"
-                           FontStyle="Italic"
+                           FontStyle="Normal"
                            FontWeight="Bold"
                            FontSize="36"/>
 
@@ -128,14 +151,14 @@
                             <Label Content="{Binding selectedServer[0].questGiver}"
                                Foreground="#FF8C8C8C"
                                FontFamily="Roboto"
-                               FontStyle="Italic"
+                               FontStyle="Normal"
                                FontSize="16"
                                Visibility="{Binding selectedServer[0].visible}"/>
 
                             <Label Content="{Binding selectedServer[0].pingData}"
                                Foreground="{Binding selectedServer[0].pingColor}"
                                FontFamily="Roboto"
-                               FontStyle="Italic"
+                               FontStyle="Normal"
                                FontSize="16"
                                HorizontalContentAlignment="Right"
                                Visibility="{Binding selectedServer[0].visible}"/>
@@ -146,7 +169,7 @@
                         <TextBlock Text="{Binding selectedServer[0].description}"
                                Foreground="White"
                                FontFamily="Roboto"
-                               FontStyle="Italic"
+                               FontStyle="Normal"
                                TextWrapping="Wrap"
                                FontSize="24"
                                Margin="5"
@@ -156,7 +179,7 @@
                             <Label Content="Gamemode:"
                                Foreground="White"
                                FontFamily="Roboto"
-                               FontStyle="Italic"
+                               FontStyle="Normal"
                                FontSize="22">
                                 <Label.Style>
                                     <Style TargetType="Label">
@@ -173,7 +196,7 @@
                             <Label Content="{Binding selectedServer[0].playStyle}"
                                Foreground="#FF467DE3"
                                FontFamily="Roboto"
-                               FontStyle="Italic"
+                               FontStyle="Normal"
                                FontSize="22"/>
                         </StackPanel>
                     </StackPanel>

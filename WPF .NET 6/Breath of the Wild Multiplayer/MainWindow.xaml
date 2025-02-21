@@ -16,7 +16,7 @@
         ResizeMode="CanMinimize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="Breath of the Wild Multiplayer">
+        Title="Lon Lon Launcher">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -54,15 +54,15 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Label Content="V2.1 By the lon lon ranch" 
+            <Label Content="V2.1 By the Lon Lon Ranch" 
                x:Name="VersionText"
                Visibility="Visible"
                HorizontalAlignment="Left" 
                VerticalAlignment="Bottom"
                FontFamily="Roboto"
                FontSize="35"
-               FontStyle="Italic"
-               Foreground="White" Margin="783,0,0,0" Grid.Row="1"/>
+               FontStyle="Normal"
+               Foreground="White" Margin="760,0,0,0" Grid.Row="1"/>
 
             <Label Content="{Binding appTitle}" 
                Grid.Row="2" 
@@ -86,9 +86,29 @@
                     </Style>
                 </Border.Style>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="-" Style="{StaticResource OtherButtons}" Click="MinimizeClick"/>
-                    <Button Content="x" Style="{StaticResource CloseButton}" Click="CloseClick"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="1186">
+                    <Image HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="32" Source="/Images/lonlon_Logo.png"/>
+                    <TextBlock TextWrapping="Wrap" Text="Lon Lon Launcher" Cursor="Hand" Foreground="White" Height="14"/>
+                    <Button Content="-" Style="{StaticResource OtherButtons}" Click="MinimizeClick" RenderTransformOrigin="0.5,0.5">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="1000"/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
+                    <Button Content="x" Style="{StaticResource CloseButton}" Click="CloseClick" RenderTransformOrigin="0.5,0.5">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="1000"/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+                    </Button>
                 </StackPanel>
             </Border>
 

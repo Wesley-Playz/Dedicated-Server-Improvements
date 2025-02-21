@@ -19,7 +19,7 @@
                                    VerticalAlignment="Center"
                                    FontFamily="Roboto"
                                    FontSize="26"
-                                   FontStyle="Italic"
+                                   FontStyle="Normal"
                                    Foreground="{TemplateBinding Foreground}"
                                    Margin="15, 0, 0, 0"/>
                                 <Border Background="#AA000000" Grid.Column="1" Margin="10" CornerRadius="3">
@@ -72,7 +72,7 @@
                                        VerticalAlignment="Center"
                                        FontFamily="Roboto"
                                        FontSize="26"
-                                       FontStyle="Italic"
+                                       FontStyle="Normal"
                                        Foreground="{TemplateBinding Foreground}"
                                        Margin="15, 0, 0, 0"/>
                                 <Border Background="{TemplateBinding Background}" Grid.Column="1" Margin="10" CornerRadius="3">
@@ -103,7 +103,7 @@
                                                        HorizontalContentAlignment="Center"
                                                        FontFamily="Roboto"
                                                        FontSize="22"
-                                                       FontStyle="Italic"
+                                                       FontStyle="Normal"
                                                        Foreground="White">
 
                                                     <Label.Effect>
@@ -132,7 +132,7 @@
                                                        HorizontalContentAlignment="Center"
                                                        FontFamily="Roboto"
                                                        FontSize="22"
-                                                       FontStyle="Italic"
+                                                       FontStyle="Normal"
                                                        Foreground="White">
 
                                                     <Label.Effect>
@@ -178,7 +178,7 @@
                                        VerticalAlignment="Center"
                                        FontFamily="Roboto"
                                        FontSize="26"
-                                       FontStyle="Italic"
+                                       FontStyle="Normal"
                                        Foreground="{TemplateBinding Foreground}"
                                        Margin="5, 0, 0, 0"/>
                                 <Border Background="{TemplateBinding Background}" Grid.Column="1" Margin="10" Width="200" CornerRadius="3">
@@ -209,7 +209,7 @@
                                                        HorizontalContentAlignment="Center"
                                                        FontFamily="Roboto"
                                                        FontSize="22"
-                                                       FontStyle="Italic"
+                                                       FontStyle="Normal"
                                                        Foreground="White">
 
                                                     <Label.Effect>
@@ -238,7 +238,7 @@
                                                        HorizontalContentAlignment="Center"
                                                        FontFamily="Roboto"
                                                        FontSize="22"
-                                                       FontStyle="Italic"
+                                                       FontStyle="Normal"
                                                        Foreground="White">
 
                                                     <Label.Effect>
@@ -324,8 +324,8 @@
                                 <Label Content="{TemplateBinding Content}"
                                        VerticalAlignment="Center"
                                        FontFamily="Roboto"
-                                       FontSize="26"
-                                       FontStyle="Italic"
+                                       FontSize="24"
+                                       FontStyle="Normal"
                                        Foreground="{TemplateBinding Foreground}"
                                        Margin="5, 0, 0, 0"/>
                                 <Border Background="{TemplateBinding Background}" Grid.Column="1" Margin="10" Width="43" CornerRadius="3">
@@ -374,8 +374,8 @@
                             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="50" Source="{TemplateBinding Tag}">
                                 <Image.Effect>
                                     <DropShadowEffect ShadowDepth="0"
-                                                      Color="Black"
-                                                      Opacity="1"
+                                                      Color="Transparent"
+                                                      Opacity="0"
                                                       BlurRadius="10"/>
                                 </Image.Effect>
                             </Image>
@@ -411,7 +411,7 @@
                                    VerticalAlignment="Center"
                                    FontFamily="Roboto"
                                    FontSize="26"
-                                   FontStyle="Italic"
+                                   FontStyle="Normal"
                                    Foreground="White"
                                    Margin="15, 0, 0, 0"/>
 
@@ -455,7 +455,7 @@
                                                         <Setter Property="Foreground" Value="White"/>
                                                         <Setter Property="FontFamily" Value="Roboto"/>
                                                         <Setter Property="FontSize" Value="22"/>
-                                                        <Setter Property="FontStyle" Value="Italic"/>
+                                                        <Setter Property="FontStyle" Value="Normal"/>
 
                                                         <Style.Triggers>
                                                             <Trigger Property="movingLeft" Value="true">
@@ -532,7 +532,7 @@
                                    VerticalAlignment="Center"
                                    FontFamily="Roboto"
                                    FontSize="26"
-                                   FontStyle="Italic"
+                                   FontStyle="Normal"
                                    Foreground="White"
                                    Margin="15, 0, 0, 0"
                                    IsHitTestVisible="False"/>
@@ -543,8 +543,8 @@
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center"
                                            FontFamily="Roboto"
-                                           FontSize="22"
-                                           FontStyle="Italic"
+                                           FontSize="20"
+                                           FontStyle="Normal"
                                            Foreground="White"
                                            BorderBrush="Transparent"
                                            BorderThickness="0"/>
