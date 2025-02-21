@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lon Lon Milkbar Launcher", "Lon Lon Milkbar Launcher.csproj", "{5585E99D-C468-49DE-A0F6-C4C48C697EC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lon Lon Launcher", "Lon Lon Launcher.csproj", "{5585E99D-C468-49DE-A0F6-C4C48C697EC9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Autoupdater", "..\Autoupdater\Autoupdater.csproj", "{BBAB51B1-33C0-4756-A7C2-BA4D85BE2351}"
 EndProject

@@ -10,11 +10,11 @@
     <UseWPF>true</UseWPF>
     <OutputPath>..\..\Build</OutputPath>
     <ApplicationIcon>LonLonMilkbarIcon.ico</ApplicationIcon>
-    <PackageId>Lon Lon Milkbar Launcher</PackageId>
+    <PackageId>Lon Lon Launcher</PackageId>
     <Authors></Authors>
     <Company>Lon Lon Ranch</Company>
-    <Product>Lon Lon Milkbar Launcher</Product>
-    <AssemblyName>Lon Lon Milkbar Launcher</AssemblyName>
+    <Product>Lon Lon Launcher</Product>
+    <AssemblyName>Lon Lon Launcher</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
