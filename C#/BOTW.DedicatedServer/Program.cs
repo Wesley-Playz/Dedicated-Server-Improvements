@@ -5,7 +5,7 @@ try
 {
     Console.WriteLine("***************************************************************");
     Console.WriteLine("*                                                             *");
-    Console.WriteLine("*             Milk Bar Launcher Dedicated Server              *");
+    Console.WriteLine("*                   Lon Lon Dedicated Server                  *");
     Console.WriteLine("*                                                             *");
     Console.WriteLine("***************************************************************\n");
 

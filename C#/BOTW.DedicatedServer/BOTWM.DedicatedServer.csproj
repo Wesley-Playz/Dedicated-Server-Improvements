@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <BaseOutputPath></BaseOutputPath>
-    <AssemblyName>Lon Lon Milkbar Server</AssemblyName>
+    <AssemblyName>Lon Lon Server</AssemblyName>
 	<OutputPath>..\..\Build\DedicatedServer</OutputPath>
   </PropertyGroup>
 
