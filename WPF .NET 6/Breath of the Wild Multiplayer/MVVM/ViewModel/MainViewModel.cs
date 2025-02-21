@@ -14,11 +14,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Automation;
 using Breath_of_the_Wild_Multiplayer.MVVM.View;
+using SharpYaml;
 
 namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 {
     public class MainViewModel : ObservableObject
     {
+        public string VersionInText => $"V{MainWindow.VERSION} By the lon lon ranch";
         public MainMenuModel MainMenuVM { get; set; }
         public IngameMenuModel IngameMenuVM { get; set; }
 
@@ -113,6 +115,7 @@ namespace Breath_of_the_Wild_Multiplayer.MVVM.ViewModel
 
         public MainViewModel()
         {
+
             SharedData.MainView = this;
             this.MainMenuVM = new MainMenuModel();
             this.IngameMenuVM = new IngameMenuModel();
