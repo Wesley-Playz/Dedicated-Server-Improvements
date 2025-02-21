@@ -78,13 +78,15 @@ def ClearFilesWithFilter(FolderToClear, filters = []):
             ClearFilesWithFilter(fr"{FolderToClear}\{file}", filters)
 
 def FixPublish():
-    ClearFolder(Output, ["publish", "DedicatedServer"])
+    if not sys.platform == "linux":
+        ClearFolder(Output, ["publish", "DedicatedServer"])
+        copyFolder(f"{Output}\\publish", Output)
+        rmtree(f"{Output}\\publish")
+        os.mkdir(f"{Output}\\BNPs")
+
     ClearFolder(f"{Output}\\DedicatedServer", ["publish"])
-    copyFolder(f"{Output}\\publish", Output)
     copyFolder(f"{Output}\\DedicatedServer\\publish", f"{Output}\\DedicatedServer")
-    rmtree(f"{Output}\\publish")
     rmtree(f"{Output}\\DedicatedServer\\publish")
-    os.mkdir(f"{Output}\\BNPs")
 
 # ClearFolder(ReleaseFolder, ["git", "Resources"])
 
